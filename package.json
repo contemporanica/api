@@ -1,29 +1,21 @@
 {
-  "name": "api",
+  "name": "node",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "app.js",
+  "type": "module",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "nodemon src/index.js",
-    "start": "node src/index.js"
+    "start": "nodemon src/app.js"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/CesurBBDD/api.git"
-  },
-  "author": "",
+  "keywords": [],
+  "author": "Roberto Rodríguez Núñez",
   "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/CesurBBDD/api/issues"
-  },
-  "homepage": "https://github.com/CesurBBDD/api#readme",
   "dependencies": {
-    "body-parser": "^1.20.1",
+    "dotenv": "^16.0.3",
+    "ejs": "^3.1.8",
     "express": "^4.18.2",
-    "mysql2": "^3.1.1",
-    "swagger-jsdoc": "^6.2.5",
-    "swagger-ui-express": "^4.6.0"
+    "mysql2": "^3.1.2"
   },
   "devDependencies": {
     "nodemon": "^2.0.20"
