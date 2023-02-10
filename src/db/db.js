@@ -17,6 +17,5 @@ async function testConnection() {
       console.error(`Error al conectarse a la base de datos: ${error.stack}`);
     }
   }
-
-  
 testConnection();
+
