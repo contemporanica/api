@@ -1,7 +1,7 @@
 {
   "name": "node",
   "version": "1.0.0",
-  "description": "[Enlace al diseño de la api](docs/DiseñoAPI.pdf)",
+  "description": "",
   "main": "app.js",
   "type": "module",
   "scripts": {
@@ -19,16 +19,5 @@
   },
   "devDependencies": {
     "nodemon": "^2.0.20"
-  },
-  "directories": {
-    "doc": "docs"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/contemporanica/api.git"
-  },
-  "bugs": {
-    "url": "https://github.com/contemporanica/api/issues"
-  },
-  "homepage": "https://github.com/contemporanica/api#readme"
+  }
 }

@@ -24,5 +24,20 @@ export const instrumentname = (req, res) => {
         .catch(err => {
           console.error("Error executing the query: " + err.stack);
         });
-    
+}
+
+export const username = (req, res) => {
+  pool.query("SELECT * FROM usuario WHERE id_usuario = '" + req.params.id + "'")
+    .then(rows => {
+      const array = rows[0].map(row => ({ 
+        id: row.usuario, 
+        nombre: row.nombre,
+        favoritos: row.lista_favoritos,
+        biografia: row.biografia
+      }));  
+      res.json(array);
+    })
+    .catch(err => {
+      console.error("Error executing the query: " + err.stack);
+    });
 }
