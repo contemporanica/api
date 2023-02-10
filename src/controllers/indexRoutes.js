@@ -31,7 +31,6 @@ export const musiccomposer = (req, res) => {
       const array = rows[0].map(row => ({
         id: row.id_usuario,
         nombre: row.nombre,
-        lista_favoritos: row.lista_favoritos,
         biografia: row.biografia
       }));
       res.json(array);
@@ -39,9 +38,10 @@ export const musiccomposer = (req, res) => {
     .catch(err => {
       console.error("Error executing the query: " + err.stack);
     });
+  }
 
 export const instrumentname = (req, res) => {
-      pool.query("SELECT * FROM instrumento WHERE nombre = '" + req.params.nombre + "'")
+      pool.query("SELECT * FROM instrumento WHERE nombre = '" + req.params.name + "'")
         .then(rows => {
           const array = rows[0].map(row => ({ 
             id: row.id_instrumento, 
@@ -61,7 +61,6 @@ export const username = (req, res) => {
       const array = rows[0].map(row => ({ 
         id: row.usuario, 
         nombre: row.nombre,
-        favoritos: row.lista_favoritos,
         biografia: row.biografia
       }));  
       res.json(array);
@@ -69,5 +68,4 @@ export const username = (req, res) => {
     .catch(err => {
       console.error("Error executing the query: " + err.stack);
     });
-
 }
