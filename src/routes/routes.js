@@ -1,9 +1,10 @@
 import { Router } from "express";
-import { musiclist } from "../controllers/indexRoutes.js"
+import { instrumentname } from "../controllers/indexRoutes.js"
 
 const router=Router();
 
-router.get('/',musiclist);
+router.get('/api/music/instrument/:nombre',instrumentname);
+
 
 //ANTIGUAMENTE= module.exports = router
 export default router
