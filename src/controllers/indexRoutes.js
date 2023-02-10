@@ -23,7 +23,7 @@ export const musiclist = async (req, res) => {
   } catch (err) {
     console.error("Error executing the query: " + err.stack);
   }
-};
+}
 
 export const musiccomposer = (req, res) => {
   pool.query("SELECT * FROM usuario WHERE nombre = '" + req.params.name + "'")
@@ -38,7 +38,7 @@ export const musiccomposer = (req, res) => {
     .catch(err => {
       console.error("Error executing the query: " + err.stack);
     });
-  }
+}
 
 export const instrumentname = (req, res) => {
       pool.query("SELECT * FROM instrumento WHERE nombre = '" + req.params.name + "'")
