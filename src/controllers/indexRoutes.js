@@ -69,3 +69,34 @@ export const username = (req, res) => {
       console.error("Error executing the query: " + err.stack);
     });
 }
+
+export const piecename = (req, res) => {
+  pool.query("SELECT * FROM pieza WHERE nombre = '" + req.params.name + "'")
+    .then(rows => {
+      const array = rows[0].map(row => ({ 
+        id: row.id_pieza, 
+        nombre: row.nombre,
+        datos: row.datos
+      }));  
+      res.json(array);
+    })
+    .catch(err => {
+      console.error("Error executing the query: " + err.stack);
+    });
+}
+
+export const namefamily = (req, res) => {
+  pool.query("SELECT * FROM instrumento WHERE familia = '" + req.params.family + "'")
+    .then(rows => {
+      const array = rows[0].map(row => ({ 
+        id: row.id_instrumento, 
+        nombre: row.nombre,
+        familia: row.familia
+      }));  
+      res.json(array);
+    })
+    .catch(err => {
+      console.error("Error executing the query: " + err.stack);
+    });
+}
+
