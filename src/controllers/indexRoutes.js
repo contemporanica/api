@@ -1,5 +1,6 @@
 import { pool, getInstrumentos } from '../db/db.js'
 
+//Muestra todas las piezas de la base de datos junto a todos sus datos correspondientes
 export const musiclist = async (req, res) => {
   try {
     const musiclist = await pool.query(
@@ -25,7 +26,8 @@ export const musiclist = async (req, res) => {
   }
 }
 
-export const musicComposer_name = (req, res) => {
+//Muestra los datos de un compositor fitrado por nombre
+export const composer_name = (req, res) => {
   pool.query("SELECT * FROM usuario WHERE nombre = '" + req.params.name + "'")
     .then(rows => {
       const array = rows[0].map(row => ({
@@ -40,6 +42,7 @@ export const musicComposer_name = (req, res) => {
     });
 }
 
+//Muestra un instrumento filtrado por nombre
 export const instrument_name = (req, res) => {
       pool.query("SELECT * FROM instrumento WHERE nombre = '" + req.params.name + "'")
         .then(rows => {
@@ -55,6 +58,7 @@ export const instrument_name = (req, res) => {
         });
 }
 
+//Muestra un usuario filtrado por ID
 export const username = (req, res) => {
   pool.query("SELECT * FROM usuario")
     .then(rows => {
@@ -85,6 +89,7 @@ export const username_id = (req, res) => {
     });
 }
 
+//Muestra pieza por nombre
 export const piece_name = (req, res) => {
   pool.query("SELECT * FROM pieza WHERE nombre = '" + req.params.name + "'")
     .then(rows => {
@@ -100,6 +105,7 @@ export const piece_name = (req, res) => {
     });
 }
 
+//Muestra familia por nombre
 export const family_name = (req, res) => {
   pool.query("SELECT * FROM instrumento WHERE familia = '" + req.params.family + "'")
     .then(rows => {
@@ -115,3 +121,18 @@ export const family_name = (req, res) => {
     });
 }
 
+//Muestra todos los instrumentos de la BBDD
+export const instruments = (req, res) => {
+  pool.query("SELECT * FROM instrumento")
+    .then(rows => {
+      const array = rows[0].map(row => ({ 
+        id: row.id_instrumento, 
+        nombre: row.nombre,
+        familia: row.familia
+      }));  
+      res.json(array);
+    })
+    .catch(err => {
+      console.error("Error executing the query: " + err.stack);
+    });
+}
