@@ -121,3 +121,18 @@ export const allinstruments = (req, res) => {
       console.error("Error executing the query: " + err.stack);
     });
 }
+
+//Mustra todas las familias de instrumentos de la BBDD.
+export const family = (req, res) => {
+  pool.query("SELECT * FROM familia")
+    .then(rows => {
+      const array = rows[0].map(row => ({ 
+        id: row.id_familia, 
+        nombre: row.nombre,
+      }));  
+      res.json(array);
+    })
+    .catch(err => {
+      console.error("Error executing the query: " + err.stack);
+    });
+}
