@@ -58,7 +58,7 @@ export const instrument_name = (req, res) => {
         });
 }
 
-//Muestra un usuario filtrado por ID
+//Muestra todos los usuarios de la BBDD
 export const username = (req, res) => {
   pool.query("SELECT * FROM usuario")
     .then(rows => {
@@ -74,6 +74,8 @@ export const username = (req, res) => {
     });
 }
 
+
+//Muestra un usuario filtrado por ID
 export const username_id = (req, res) => {
   pool.query("SELECT * FROM usuario WHERE id_usuario = '" + req.params.id + "'")
     .then(rows => {
@@ -129,6 +131,21 @@ export const instruments = (req, res) => {
         id: row.id_instrumento, 
         nombre: row.nombre,
         familia: row.familia
+      }));  
+      res.json(array);
+    })
+    .catch(err => {
+      console.error("Error executing the query: " + err.stack);
+    });
+}
+
+//Muestra todos los familias de la BBDD
+export const family = (req, res) => {
+  pool.query("SELECT * FROM familia")
+    .then(rows => {
+      const array = rows[0].map(row => ({ 
+        id: row.id_familia, 
+        nombre: row.nombre
       }));  
       res.json(array);
     })
