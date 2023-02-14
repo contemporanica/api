@@ -27,7 +27,7 @@ export const musiclist = async (req, res) => {
 }
 
 //Muestra los datos de un compositor fitrado por nombre
-export const musiccomposer = (req, res) => {
+export const composer_name = (req, res) => {
   pool.query("SELECT * FROM usuario WHERE nombre = '" + req.params.name + "'")
     .then(rows => {
       const array = rows[0].map(row => ({
@@ -43,7 +43,7 @@ export const musiccomposer = (req, res) => {
 }
 
 //Muestra un instrumento filtrado por nombre
-export const instrumentname = (req, res) => {
+export const instrument_name = (req, res) => {
       pool.query("SELECT * FROM instrumento WHERE nombre = '" + req.params.name + "'")
         .then(rows => {
           const array = rows[0].map(row => ({ 
@@ -60,6 +60,21 @@ export const instrumentname = (req, res) => {
 
 //Muestra un usuario filtrado por ID
 export const username = (req, res) => {
+  pool.query("SELECT * FROM usuario")
+    .then(rows => {
+      const array = rows[0].map(row => ({ 
+        id: row.usuario, 
+        nombre: row.nombre,
+        biografia: row.biografia
+      }));  
+      res.json(array);
+    })
+    .catch(err => {
+      console.error("Error executing the query: " + err.stack);
+    });
+}
+
+export const username_id = (req, res) => {
   pool.query("SELECT * FROM usuario WHERE id_usuario = '" + req.params.id + "'")
     .then(rows => {
       const array = rows[0].map(row => ({ 
@@ -75,7 +90,7 @@ export const username = (req, res) => {
 }
 
 //Muestra pieza por nombre
-export const piecename = (req, res) => {
+export const piece_name = (req, res) => {
   pool.query("SELECT * FROM pieza WHERE nombre = '" + req.params.name + "'")
     .then(rows => {
       const array = rows[0].map(row => ({ 
@@ -91,7 +106,7 @@ export const piecename = (req, res) => {
 }
 
 //Muestra familia por nombre
-export const namefamily = (req, res) => {
+export const family_name = (req, res) => {
   pool.query("SELECT * FROM instrumento WHERE familia = '" + req.params.family + "'")
     .then(rows => {
       const array = rows[0].map(row => ({ 
@@ -107,7 +122,7 @@ export const namefamily = (req, res) => {
 }
 
 //Muestra todos los instrumentos de la BBDD
-export const allinstruments = (req, res) => {
+export const instruments = (req, res) => {
   pool.query("SELECT * FROM instrumento")
     .then(rows => {
       const array = rows[0].map(row => ({ 
