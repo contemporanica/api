@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { instrument_name, username, username_id, musiclist, composer_name, piece_name, family_name } from "../controllers/indexRoutes.js"
+import { instrument_name, username, username_id, musiclist, composer_name, piece_name, family_name, instruments, family } from "../controllers/indexRoutes.js"
 
 const router=Router();
 
@@ -26,6 +26,9 @@ router.get('/api/music/name/:name',piece_name);
 
 //Muestra la familia por nombre
 router.get('/api/music/family/:family',family_name);
+
+//Muestra todas las familias
+router.get('/api/music/family/all',family);
 
 //ANTIGUAMENTE= module.exports = router
 export default router
