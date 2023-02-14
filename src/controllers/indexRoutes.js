@@ -139,13 +139,29 @@ export const instruments = (req, res) => {
     });
 }
 
-//Muestra todos los familias de la BBDD
+//Muestra todas los familias de la BBDD
 export const family = (req, res) => {
   pool.query("SELECT * FROM familia")
     .then(rows => {
       const array = rows[0].map(row => ({ 
         id: row.id_familia, 
         nombre: row.nombre
+      }));  
+      res.json(array);
+    })
+    .catch(err => {
+      console.error("Error executing the query: " + err.stack);
+    });
+}
+
+//Muestra todos los compositores de la BBDD
+export const composer = (req, res) => {
+  pool.query("SELECT * FROM familia")
+    .then(rows => {
+      const array = rows[0].map(row => ({ 
+        id: row.id_compositor, 
+        nombre: row.nombre,
+        biografia: row.biografia
       }));  
       res.json(array);
     })
