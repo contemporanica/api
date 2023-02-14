@@ -25,7 +25,7 @@ export const musiclist = async (req, res) => {
   }
 }
 
-export const musiccomposer = (req, res) => {
+export const musicComposer_name = (req, res) => {
   pool.query("SELECT * FROM usuario WHERE nombre = '" + req.params.name + "'")
     .then(rows => {
       const array = rows[0].map(row => ({
@@ -40,7 +40,7 @@ export const musiccomposer = (req, res) => {
     });
 }
 
-export const instrumentname = (req, res) => {
+export const instrument_name = (req, res) => {
       pool.query("SELECT * FROM instrumento WHERE nombre = '" + req.params.name + "'")
         .then(rows => {
           const array = rows[0].map(row => ({ 
@@ -56,6 +56,21 @@ export const instrumentname = (req, res) => {
 }
 
 export const username = (req, res) => {
+  pool.query("SELECT * FROM usuario")
+    .then(rows => {
+      const array = rows[0].map(row => ({ 
+        id: row.usuario, 
+        nombre: row.nombre,
+        biografia: row.biografia
+      }));  
+      res.json(array);
+    })
+    .catch(err => {
+      console.error("Error executing the query: " + err.stack);
+    });
+}
+
+export const username_id = (req, res) => {
   pool.query("SELECT * FROM usuario WHERE id_usuario = '" + req.params.id + "'")
     .then(rows => {
       const array = rows[0].map(row => ({ 
@@ -70,7 +85,7 @@ export const username = (req, res) => {
     });
 }
 
-export const piecename = (req, res) => {
+export const piece_name = (req, res) => {
   pool.query("SELECT * FROM pieza WHERE nombre = '" + req.params.name + "'")
     .then(rows => {
       const array = rows[0].map(row => ({ 
@@ -85,7 +100,7 @@ export const piecename = (req, res) => {
     });
 }
 
-export const namefamily = (req, res) => {
+export const family_name = (req, res) => {
   pool.query("SELECT * FROM instrumento WHERE familia = '" + req.params.family + "'")
     .then(rows => {
       const array = rows[0].map(row => ({ 
