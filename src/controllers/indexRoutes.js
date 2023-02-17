@@ -31,7 +31,7 @@ export const composer_name = (req, res) => {
   pool.query("SELECT * FROM usuario WHERE nombre = '" + req.params.name + "'")
     .then(rows => {
       const array = rows[0].map(row => ({
-        id: row.id_usuario,
+        id: row.idusuario,
         nombre: row.nombre,
         biografia: row.biografia
       }));
@@ -47,7 +47,7 @@ export const instrument_name = (req, res) => {
       pool.query("SELECT * FROM instrumento WHERE nombre = '" + req.params.name + "'")
         .then(rows => {
           const array = rows[0].map(row => ({ 
-            id: row.id_instrumento, 
+            id: row.idinstrumento, 
             nombre: row.nombre,
             familia: row.familia
           }));  
@@ -63,7 +63,7 @@ export const username = (req, res) => {
   pool.query("SELECT * FROM usuario")
     .then(rows => {
       const array = rows[0].map(row => ({ 
-        id: row.usuario, 
+        id: row.idusuario, 
         nombre: row.nombre,
         biografia: row.biografia
       }));  
@@ -80,7 +80,7 @@ export const username_id = (req, res) => {
   pool.query("SELECT * FROM usuario WHERE id_usuario = '" + req.params.id + "'")
     .then(rows => {
       const array = rows[0].map(row => ({ 
-        id: row.usuario, 
+        id: row.idusuario, 
         nombre: row.nombre,
         biografia: row.biografia
       }));  
@@ -96,7 +96,7 @@ export const piece_name = (req, res) => {
   pool.query("SELECT * FROM pieza WHERE nombre = '" + req.params.name + "'")
     .then(rows => {
       const array = rows[0].map(row => ({ 
-        id: row.id_pieza, 
+        id: row.idpieza, 
         nombre: row.nombre,
         datos: row.datos
       }));  
@@ -112,7 +112,7 @@ export const family_name = (req, res) => {
   pool.query("SELECT * FROM instrumento WHERE familia = '" + req.params.family + "'")
     .then(rows => {
       const array = rows[0].map(row => ({ 
-        id: row.id_instrumento, 
+        id: row.idinstrumento, 
         nombre: row.nombre,
         familia: row.familia
       }));  
@@ -128,7 +128,7 @@ export const instruments = (req, res) => {
   pool.query("SELECT * FROM instrumento")
     .then(rows => {
       const array = rows[0].map(row => ({ 
-        id: row.id_instrumento, 
+        id: row.idinstrumento, 
         nombre: row.nombre,
         familia: row.familia
       }));  
@@ -144,7 +144,7 @@ export const family = (req, res) => {
   pool.query("SELECT * FROM familia")
     .then(rows => {
       const array = rows[0].map(row => ({ 
-        id: row.id_familia, 
+        id: row.idfamilia, 
         nombre: row.nombre
       }));  
       res.json(array);
@@ -156,10 +156,10 @@ export const family = (req, res) => {
 
 //Muestra todos los compositores de la BBDD
 export const composer = (req, res) => {
-  pool.query("SELECT * FROM familia")
+  pool.query("SELECT * FROM compositor")
     .then(rows => {
       const array = rows[0].map(row => ({ 
-        id: row.id_compositor, 
+        id: row.idcompositor, 
         nombre: row.nombre,
         biografia: row.biografia
       }));  
