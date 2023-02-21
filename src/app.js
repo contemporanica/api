@@ -3,7 +3,7 @@
 import express from 'express';
 import { dirname, join } from 'path';
 import { fileURLToPath } from 'url';
-import indexRoutes from './routes/routes.js'
+import indexRoutesr from './routes/routes.js'
 import dotenv from 'dotenv';
 
 const app = express();
@@ -20,7 +20,7 @@ console.log("El servidor está escuchando en el puerto:",port);
 app.set('view engine','ejs');
 app.set('views',join(__dirname,'views'));
 
-app.use(indexRoutes);
+app.use(indexRoutesr);
 
 //Configurar la carpeta Public para contenido estático
 app.use(express.static(join(__dirname,'public')));
