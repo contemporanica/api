@@ -28,18 +28,23 @@ export const musiclist = async (req, res) => {
 
 //Muestra los datos de un compositor fitrado por nombre
 export const composer_name = (req, res) => {
-  pool.query("SELECT * FROM compositor WHERE nombre = '" + req.params.name + "'")
-    .then(rows => {
-      const array = rows[0].map(row => ({
-        id: row.id_compositor,
-        nombre: row.nombre,
-        biografia: row.biografia
-      }));
-      res.json(array);
-    })
-    .catch(err => {
-      console.error("Error executing the query: " + err.stack);
-    });
+  if(req.header('Authorization') === process.env.TOKEN){
+    pool.query("SELECT * FROM compositor WHERE nombre = '" + req.params.name + "'")
+      .then(rows => {
+        const array = rows[0].map(row => ({
+          id: row.id_compositor,
+          nombre: row.nombre,
+          biografia: row.biografia
+        }));
+        res.json(array);
+      })
+      .catch(err => {
+        console.error("Error executing the query: " + err.stack);
+      });
+
+  }else{
+    res.json('The request requires authorization. Check if your application has the corresponding API_KEY');
+  }
 }
 
 //Muestra un instrumento filtrado por nombre
