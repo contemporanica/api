@@ -3,7 +3,10 @@
 import express from 'express';
 import { dirname, join } from 'path';
 import { fileURLToPath } from 'url';
-import indexRoutesr from './routes/routes.js'
+import familyrouter from './routes/family.routes.js';
+import composerrouter from './routes/composer.routes.js';
+import pieccesrouter from './routes/pieces.routes.js';
+import instrumentrouter from './routes/instrument.routes.js';
 import dotenv from 'dotenv';
 
 const app = express();
@@ -20,7 +23,7 @@ console.log("El servidor está escuchando en el puerto:",port);
 app.set('view engine','ejs');
 app.set('views',join(__dirname,'views'));
 
-app.use(indexRoutesr);
+app.use(familyrouter, composerrouter, pieccesrouter, instrumentrouter);
 
 //Configurar la carpeta Public para contenido estático
 app.use(express.static(join(__dirname,'public')));
