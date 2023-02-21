@@ -40,6 +40,5 @@ async function connection() {
       throw new Error("Unable to retrieve instrumentos");
     }
   }
-  
 connection();
 
