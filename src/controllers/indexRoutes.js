@@ -13,7 +13,7 @@ export const musiclist = async (req, res) => {
         id_pieza: row.pieza_id_pieza,
         nombrePieza: row.pieza_nombre,
         datosPieza: row.pieza_datos,
-        id_usuario: row.pieza_id_usuario,
+        id_composer: row.pieza_id_composer,
         instrumentos: instrumentos,
         nombreUsuario: row.usuario_nombre
       };
@@ -28,18 +28,23 @@ export const musiclist = async (req, res) => {
 
 //Muestra los datos de un compositor fitrado por nombre
 export const composer_name = (req, res) => {
-  pool.query("SELECT * FROM usuario WHERE nombre = '" + req.params.name + "'")
-    .then(rows => {
-      const array = rows[0].map(row => ({
-        id: row.idusuario,
-        nombre: row.nombre,
-        biografia: row.biografia
-      }));
-      res.json(array);
-    })
-    .catch(err => {
-      console.error("Error executing the query: " + err.stack);
-    });
+  if(req.header('Authorization') === process.env.TOKEN){
+    pool.query("SELECT * FROM compositor WHERE nombre = '" + req.params.name + "'")
+      .then(rows => {
+        const array = rows[0].map(row => ({
+          id: row.id_compositor,
+          nombre: row.nombre,
+          biografia: row.biografia
+        }));
+        res.json(array);
+      })
+      .catch(err => {
+        console.error("Error executing the query: " + err.stack);
+      });
+
+  }else{
+    res.json('The request requires authorization. Check if your application has the corresponding API_KEY');
+  }
 }
 
 //Muestra un instrumento filtrado por nombre
@@ -58,26 +63,9 @@ export const instrument_name = (req, res) => {
         });
 }
 
-//Muestra todos los usuarios de la BBDD
-export const username = (req, res) => {
-  pool.query("SELECT * FROM usuario")
-    .then(rows => {
-      const array = rows[0].map(row => ({ 
-        id: row.idusuario, 
-        nombre: row.nombre,
-        biografia: row.biografia
-      }));  
-      res.json(array);
-    })
-    .catch(err => {
-      console.error("Error executing the query: " + err.stack);
-    });
-}
-
-
-//Muestra un usuario filtrado por ID
-export const username_id = (req, res) => {
-  pool.query("SELECT * FROM usuario WHERE id_usuario = '" + req.params.id + "'")
+//Muestra un compositor filtrado por ID
+export const composer_id = (req, res) => {
+  pool.query("SELECT * FROM usuario WHERE id_compositor = '" + req.params.id + "'")
     .then(rows => {
       const array = rows[0].map(row => ({ 
         id: row.idusuario, 
