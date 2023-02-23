@@ -3,8 +3,13 @@
 import express from 'express';
 import { dirname, join } from 'path';
 import { fileURLToPath } from 'url';
-import indexRoutes from './routes/routes.js'
+import familyrouter from './routes/family.routes.js';
+import composerrouter from './routes/composer.routes.js';
+import pieccesrouter from './routes/pieces.routes.js';
+import instrumentrouter from './routes/instrument.routes.js';
 import dotenv from 'dotenv';
+import swaggerUi from 'swagger-ui-express';
+import swaggerDocument from '.swagger/swagger.json' assert { type: "json" };;
 
 const app = express();
 const __dirname= dirname(fileURLToPath(import.meta.url));
@@ -20,7 +25,10 @@ console.log("El servidor está escuchando en el puerto:",port);
 app.set('view engine','ejs');
 app.set('views',join(__dirname,'views'));
 
-app.use(indexRoutes);
+app.use(familyrouter, composerrouter, pieccesrouter, instrumentrouter);
 
 //Configurar la carpeta Public para contenido estático
 app.use(express.static(join(__dirname,'public')));
+
+//Swagger
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument)); 
