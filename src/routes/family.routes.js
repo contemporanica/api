@@ -9,4 +9,7 @@ router.get('/api/music/family/:family',family_name);
 //Muestra todas las familias
 router.get('/api/music/family/all',family);
 
+//Muestra la familia por id
+router.get('/api/music/family/:id',family_id);
+
 export default router

@@ -79,6 +79,22 @@ export const composer_id = (req, res) => {
     });
 }
 
+//Muestra familia filtrada por ID
+export const family_id = (req, res) => {
+  pool.query("SELECT * FROM instrumento WHERE id_familia = '" + req.params.id + "'")
+    .then(rows => {
+      const array = rows[0].map(row => ({ 
+        id: row.idinstrumento, 
+        nombre: row.nombre,
+        familia: row.familia
+      }));  
+      res.json(array);
+    })
+    .catch(err => {
+      console.error("Error executing the query: " + err.stack);
+    });
+}
+
 //Muestra pieza por nombre
 export const piece_name = (req, res) => {
   pool.query("SELECT * FROM pieza WHERE nombre = '" + req.params.name + "'")
