@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { instrument_name, instruments} from "../controllers/indexRoutes.js"
+import { instrument_id, instrument_name, instruments} from "../controllers/indexRoutes.js"
 
 const router=Router();
 
@@ -8,5 +8,8 @@ router.get('/api/music/instrument/all',instruments);
 
 //Muestra instrumento por nombre
 router.get('/api/music/instrument/:name',instrument_name);
+
+//Muestra instrumento por id
+router.get('/api/music/instrument/:id',instrument_id);
 
 export default router
