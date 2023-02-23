@@ -1,5 +1,5 @@
 import { Router } from "express";
-import {family_name, family, } from "../controllers/indexRoutes.js"
+import {family_name, family, family_id} from "../controllers/indexRoutes.js"
 
 const router=Router();
 
