@@ -1,0 +1,28 @@
+version: '3'
+services:
+  api:
+    build: .
+    ports:
+      - "4000:4000"
+    depends_on:
+      - db
+    environment:
+      DB_HOST: db
+      DB_USER: contemporanica
+      DB_PASSWORD: ContemporanicaDaw2@23
+      DB_PORT: "3306"
+      TOKEN: a944114ba4149684eb4e6b00e6093fdb
+      
+  db:
+    image: contemporanica/bbdd
+    environment:
+      MYSQL_ROOT_PASSWORD: ContemporanicaDaw2@23
+      MYSQL_DATABASE: contemporanica
+      MYSQL_USER: contemporanica
+      MYSQL_PASSWORD: ContemporanicaDaw2@23
+    ports:
+      - "3306:3306"
+    volumes:
+      - db_data:/var/lib/mysql
+volumes:
+  db_data:

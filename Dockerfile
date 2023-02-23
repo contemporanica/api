@@ -8,7 +8,7 @@ RUN npm install
 # copy other files as well
 COPY ./src/ ./src/
 #expose the port
-EXPOSE 8080
+EXPOSE 3000
 # run the app
 # command to run when intantiate an image
 CMD ["npm","start"]
