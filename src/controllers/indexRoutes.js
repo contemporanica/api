@@ -68,9 +68,9 @@ export const instrument_id = (req, res) => {
   pool.query("SELECT * FROM instrumento WHERE id_instrumento = '" + req.params.id + "'")
     .then(rows => {
       const array = rows[0].map(row => ({ 
-        id: row.idinstrumento, 
+        id: row.id_instrumento, 
         nombre: row.nombre,
-        familia: row.familia
+        idfamilia: row.id_familia
       }));  
       res.json(array);
     })
