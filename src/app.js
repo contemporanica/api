@@ -9,7 +9,7 @@ import pieccesrouter from './routes/pieces.routes.js';
 import instrumentrouter from './routes/instrument.routes.js';
 import dotenv from 'dotenv';
 import swaggerUi from 'swagger-ui-express';
-import swaggerDocument from '.swagger/swagger.json' assert { type: "json" };;
+import swaggerDocument from './swagger/swagger.json' assert { type: "json" };;
 
 const app = express();
 const __dirname= dirname(fileURLToPath(import.meta.url));
