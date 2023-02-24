@@ -28,7 +28,7 @@ export const musiclist = async (req, res) => {
 
 //Muestra los datos de un compositor fitrado por nombre
 export const composer_name = (req, res) => {
-  if(req.header('Authorization') === process.env.TOKEN){
+  if (req.header('Authorization') === process.env.TOKEN) {
     pool.query("SELECT * FROM compositor WHERE nombre = '" + req.params.name + "'")
       .then(rows => {
         const array = rows[0].map(row => ({
@@ -42,149 +42,185 @@ export const composer_name = (req, res) => {
         console.error("Error executing the query: " + err.stack);
       });
 
-  }else{
+  } else {
     res.json('The request requires authorization. Check if your application has the corresponding API_KEY');
   }
 }
 
 //Muestra un instrumento filtrado por nombre
 export const instrument_name = (req, res) => {
-      pool.query("SELECT * FROM instrumento WHERE nombre = '" + req.params.name + "'")
-        .then(rows => {
-          const array = rows[0].map(row => ({ 
-            id: row.idinstrumento, 
-            nombre: row.nombre,
-            familia: row.familia
-          }));  
-          res.json(array);
-        })
-        .catch(err => {
-          console.error("Error executing the query: " + err.stack);
-        });
+  if (req.header('Authorization') === process.env.TOKEN) {
+    pool.query("SELECT * FROM instrumento WHERE nombre = '" + req.params.name + "'")
+      .then(rows => {
+        const array = rows[0].map(row => ({
+          id: row.idinstrumento,
+          nombre: row.nombre,
+          familia: row.familia
+        }));
+        res.json(array);
+      })
+      .catch(err => {
+        console.error("Error executing the query: " + err.stack);
+      });
+  } else {
+    res.json('The request requires authorization. Check if your application has the corresponding API_KEY');
+  }
 }
 
 //Muestra un instrumento filtrado por id
 export const instrument_id = (req, res) => {
-  pool.query("SELECT * FROM instrumento WHERE id_instrumento = '" + req.params.id + "'")
-    .then(rows => {
-      const array = rows[0].map(row => ({ 
-        id: row.id_instrumento, 
-        nombre: row.nombre,
-        idfamilia: row.id_familia
-      }));  
-      res.json(array);
-    })
-    .catch(err => {
-      console.error("Error executing the query: " + err.stack);
-    });
+  if (req.header('Authorization') === process.env.TOKEN) {
+    pool.query("SELECT * FROM instrumento WHERE id_instrumento = '" + req.params.id + "'")
+      .then(rows => {
+        const array = rows[0].map(row => ({
+          id: row.id_instrumento,
+          nombre: row.nombre,
+          idfamilia: row.id_familia
+        }));
+        res.json(array);
+      })
+      .catch(err => {
+        console.error("Error executing the query: " + err.stack);
+      });
+  } else {
+    res.json('The request requires authorization. Check if your application has the corresponding API_KEY');
+  }
 }
 
 //Muestra un compositor filtrado por ID
 export const composer_id = (req, res) => {
-  pool.query("SELECT * FROM usuario WHERE id_compositor = '" + req.params.id + "'")
-    .then(rows => {
-      const array = rows[0].map(row => ({ 
-        id: row.idusuario, 
-        nombre: row.nombre,
-        biografia: row.biografia
-      }));  
-      res.json(array);
-    })
-    .catch(err => {
-      console.error("Error executing the query: " + err.stack);
-    });
+  if (req.header('Authorization') === process.env.TOKEN) {
+    pool.query("SELECT * FROM usuario WHERE id_compositor = '" + req.params.id + "'")
+      .then(rows => {
+        const array = rows[0].map(row => ({
+          id: row.idusuario,
+          nombre: row.nombre,
+          biografia: row.biografia
+        }));
+        res.json(array);
+      })
+      .catch(err => {
+        console.error("Error executing the query: " + err.stack);
+      });
+  } else {
+    res.json('The request requires authorization. Check if your application has the corresponding API_KEY');
+  }
 }
 
 //Muestra familia filtrada por ID
 export const family_id = (req, res) => {
-  pool.query("SELECT * FROM familia WHERE id_familia = '" + req.params.id + "'")
-    .then(rows => {
-      const array = rows[0].map(row => ({ 
-        id: row.id_familia, 
-        nombre: row.nombre
-      }));  
-      res.json(array);
-    })
-    .catch(err => {
-      console.error("Error executing the query: " + err.stack);
-    });
+  if (req.header('Authorization') === process.env.TOKEN) {
+    pool.query("SELECT * FROM familia WHERE id_familia = '" + req.params.id + "'")
+      .then(rows => {
+        const array = rows[0].map(row => ({
+          id: row.id_familia,
+          nombre: row.nombre
+        }));
+        res.json(array);
+      })
+      .catch(err => {
+        console.error("Error executing the query: " + err.stack);
+      });
+  } else {
+    res.json('The request requires authorization. Check if your application has the corresponding API_KEY');
+  }
 }
 
 //Muestra pieza por nombre
 export const piece_name = (req, res) => {
-  pool.query("SELECT * FROM pieza WHERE nombre = '" + req.params.name + "'")
-    .then(rows => {
-      const array = rows[0].map(row => ({ 
-        id: row.idpieza, 
-        nombre: row.nombre,
-        datos: row.datos
-      }));  
-      res.json(array);
-    })
-    .catch(err => {
-      console.error("Error executing the query: " + err.stack);
-    });
+  if (req.header('Authorization') === process.env.TOKEN) {
+    pool.query("SELECT * FROM pieza WHERE nombre = '" + req.params.name + "'")
+      .then(rows => {
+        const array = rows[0].map(row => ({
+          id: row.idpieza,
+          nombre: row.nombre,
+          datos: row.datos
+        }));
+        res.json(array);
+      })
+      .catch(err => {
+        console.error("Error executing the query: " + err.stack);
+      });
+  } else {
+    res.json('The request requires authorization. Check if your application has the corresponding API_KEY');
+  }
 }
 
 //Muestra familia por nombre
 export const family_name = (req, res) => {
-  pool.query("SELECT * FROM instrumento WHERE familia = '" + req.params.family + "'")
-    .then(rows => {
-      const array = rows[0].map(row => ({ 
-        id: row.idinstrumento, 
-        nombre: row.nombre,
-        familia: row.familia
-      }));  
-      res.json(array);
-    })
-    .catch(err => {
-      console.error("Error executing the query: " + err.stack);
-    });
+  if (req.header('Authorization') === process.env.TOKEN) {
+    pool.query("SELECT * FROM instrumento WHERE familia = '" + req.params.family + "'")
+      .then(rows => {
+        const array = rows[0].map(row => ({
+          id: row.idinstrumento,
+          nombre: row.nombre,
+          familia: row.familia
+        }));
+        res.json(array);
+      })
+      .catch(err => {
+        console.error("Error executing the query: " + err.stack);
+      });
+  } else {
+    res.json('The request requires authorization. Check if your application has the corresponding API_KEY');
+  }
 }
 
 //Muestra todos los instrumentos de la BBDD
 export const instruments = (req, res) => {
-  pool.query("SELECT * FROM instrumento")
-    .then(rows => {
-      const array = rows[0].map(row => ({ 
-        id: row.idinstrumento, 
-        nombre: row.nombre,
-        familia: row.familia
-      }));  
-      res.json(array);
-    })
-    .catch(err => {
-      console.error("Error executing the query: " + err.stack);
-    });
+  if (req.header('Authorization') === process.env.TOKEN) {
+    pool.query("SELECT * FROM instrumento")
+      .then(rows => {
+        const array = rows[0].map(row => ({
+          id: row.idinstrumento,
+          nombre: row.nombre,
+          familia: row.familia
+        }));
+        res.json(array);
+      })
+      .catch(err => {
+        console.error("Error executing the query: " + err.stack);
+      });
+  } else {
+    res.json('The request requires authorization. Check if your application has the corresponding API_KEY');
+  }
 }
 
 //Muestra todas los familias de la BBDD
 export const family = (req, res) => {
-  pool.query("SELECT * FROM familia")
-    .then(rows => {
-      const array = rows[0].map(row => ({ 
-        id: row.idfamilia, 
-        nombre: row.nombre
-      }));  
-      res.json(array);
-    })
-    .catch(err => {
-      console.error("Error executing the query: " + err.stack);
-    });
+  if (req.header('Authorization') === process.env.TOKEN) {
+    pool.query("SELECT * FROM familia")
+      .then(rows => {
+        const array = rows[0].map(row => ({
+          id: row.idfamilia,
+          nombre: row.nombre
+        }));
+        res.json(array);
+      })
+      .catch(err => {
+        console.error("Error executing the query: " + err.stack);
+      });
+  } else {
+    res.json('The request requires authorization. Check if your application has the corresponding API_KEY');
+  }
 }
 
 //Muestra todos los compositores de la BBDD
 export const composer = (req, res) => {
-  pool.query("SELECT * FROM compositor")
-    .then(rows => {
-      const array = rows[0].map(row => ({ 
-        id: row.idcompositor, 
-        nombre: row.nombre,
-        biografia: row.biografia
-      }));  
-      res.json(array);
-    })
-    .catch(err => {
-      console.error("Error executing the query: " + err.stack);
-    });
+  if (req.header('Authorization') === process.env.TOKEN) {
+    pool.query("SELECT * FROM compositor")
+      .then(rows => {
+        const array = rows[0].map(row => ({
+          id: row.idcompositor,
+          nombre: row.nombre,
+          biografia: row.biografia
+        }));
+        res.json(array);
+      })
+      .catch(err => {
+        console.error("Error executing the query: " + err.stack);
+      });
+  } else {
+    res.json('The request requires authorization. Check if your application has the corresponding API_KEY');
+  }
 }
