@@ -11,10 +11,21 @@
       "get": {
         "tags": ["Composers"],
         "summary": "Esta llamada devuelve todos los compositores de Contemporanica",
-        "description": "Esta llamada no necesita que le pasemos ningún parámetro, devuelve todos los compositores de Contemporanica",
-        "requestBody": {
-          "required": false
-        },
+        "description": "Esta llamada solo necesita que le pasemos el token como parámetro",
+        "security": [{
+          "ApiKeyAuth": []  
+        }],  
+        "parameters": [
+          {
+            "name": "token",
+            "in": "header",
+            "description": "El token de la API",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
         "responses": {
           "201": {
             "description": "Success",
@@ -28,32 +39,37 @@
         }
       }
     },
+    "components": {
+      "securitySchemes": {
+        "ApiKeyAuth": {
+          "type": "apiKey",
+          "in": "header",
+          "Authorization":"a944114ba4149684eb4e6b00e6093fdb"
+        }
+      }
+    },
     "/api/music/composer/{name}": {
-      "post": {
+      "get": {
         "tags": ["Composers"],
         "summary": "Esta llamada devuelve un compositor de Contemporánica filtrado por su nombre",
-        "description": "Esta llamada necesita que le pasemos como parámetro el nombre del compositor.",
-        "requestBody": {
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "type": "object",
-                "properties": {
-                  "name": {
-                    "type": "string"
-                  }
-                },
-                "required": ["name"]
-              }
-            }
-          }
-        },        
+        "description": "Esta llamada necesita que le pasemos como parámetro el nombre del compositor y el token.",
+        "security": [{
+          "ApiKeyAuth": []  
+        }],      
         "parameters": [
           {
             "name": "name",
             "in": "path",
             "description": "El nombre del compositor",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "token",
+            "in": "header",
+            "description": "El token de la API",
             "required": true,
             "schema": {
               "type": "string"
@@ -98,29 +114,15 @@
           }
         }        
       }
-    },  
+    },
     "/api/music/composer/{id}": {
-      "post": {
+      "get": {
         "tags": ["Composers"],
         "summary": "Esta llamada devuelve un compositor de Contemporánica filtrado por su ID",
-        "description": "Esta llamada necesita que le pasemos como parámetro el ID del compositor.",
-        "requestBody": {
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "type": "object",
-                "properties": {
-                  "id": {
-                    "type": "integer",
-                    "format": "int64"
-                  }
-                },
-                "required": ["id"]
-              }
-            }
-          }
-        },        
+        "description": "Esta llamada necesita que le pasemos como parámetro el ID del compositor y el token.",
+        "security": [{
+          "ApiKeyAuth": []  
+        }],        
         "parameters": [
           {
             "name": "id",
@@ -130,6 +132,15 @@
             "schema": {
               "type": "integer",
               "format": "int64"
+            }
+          },
+          {
+            "name": "token",
+            "in": "header",
+            "description": "El token de la API",
+            "required": true,
+            "schema": {
+              "type": "string"
             }
           }
         ],
@@ -176,10 +187,21 @@
       "get": {
         "tags": ["Instruments"],
         "summary": "Esta llamada devuelve todos los instrumentos de Contemporanica",
-        "description": "Esta llamada no necesita que le pasemos ningún parámetro, devuelve todos los instrumentos de Contemporanica",
-        "requestBody": {
-          "required": false
-        },
+        "description": "Esta llamada solo necesita que le pasemos el token como parámetro",
+        "security": [{
+          "ApiKeyAuth": []  
+        }],  
+        "parameters": [
+          {
+            "name": "token",
+            "in": "header",
+            "description": "El token de la API",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
         "responses": {
           "201": {
             "description": "Success",
@@ -194,15 +216,27 @@
       }
     },
     "/api/music/instrument/{name}": {
-      "post": {
+      "get": {
         "tags": ["Instruments"],
         "summary": "Esta llamada devuelve un instrumento musical filtrado por su nombre",
-        "description": "Esta llamada necesita que le pasemos como parámetro el nombre del instrumento.",
+        "description": "Esta llamada necesita que le pasemos como parámetro el nombre del instrumento y el token.",
+        "security": [{
+          "ApiKeyAuth": []  
+        }],  
         "parameters": [
           {
             "name": "name",
             "in": "path",
             "description": "El nombre del instrumento",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "token",
+            "in": "header",
+            "description": "El token de la API",
             "required": true,
             "schema": {
               "type": "string"
@@ -244,10 +278,21 @@
       "get": {
         "tags": ["Pieces"],
         "summary": "Esta llamada devuelve todas las piezas de Contemporanica",
-        "description": "Esta llamada no necesita que le pasemos ningún parámetro, devuelve todas las piezas de Contemporanica",
-        "requestBody": {
-          "required": false
-        },
+        "description": "Esta llamada solo necesita que le pasemos el token como parámetro",
+        "security": [{
+          "ApiKeyAuth": []  
+        }],  
+        "parameters": [
+          {
+            "name": "token",
+            "in": "header",
+            "description": "El token de la API",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
         "responses": {
           "201": {
             "description": "Success",
@@ -262,15 +307,27 @@
       }
     },
     "/api/music/name/{name}": {
-      "post": {
+      "get": {
         "tags": ["Pieces"],
         "summary": "Esta llamada devuelve una pieza musical filtrada por su nombre",
-        "description": "Esta llamada necesita que le pasemos como parámetro el nombre de la pieza musical.",
+        "description": "Esta llamada necesita que le pasemos como parámetro el nombre de la pieza musical y el token.",
+        "security": [{
+          "ApiKeyAuth": []  
+        }],  
         "parameters": [
           {
             "name": "name",
             "in": "path",
             "description": "El nombre de la pieza musical",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "token",
+            "in": "header",
+            "description": "El token de la API",
             "required": true,
             "schema": {
               "type": "string"
@@ -311,10 +368,21 @@
       "get": {
         "tags": ["Families"],
         "summary": "Esta llamada devuelve todas las familias de Contemporanica",
-        "description": "Esta llamada no necesita que le pasemos ningún parámetro, devuelve todas las familias de Contemporanica",
-        "requestBody": {
-          "required": false
-        },
+        "description": "Esta llamada solo necesita que le pasemos el token como parámetro",
+        "security": [{
+          "ApiKeyAuth": []  
+        }],  
+        "parameters": [
+          {
+            "name": "token",
+            "in": "header",
+            "description": "El token de la API",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
         "responses": {
           "201": {
             "description": "Success",
@@ -329,15 +397,27 @@
       }
     },
     "/api/music/family/{family}": {
-      "post": {
+      "get": {
         "tags": ["Families"],
         "summary": "Esta llamada devuelve un instrumento de Contemporánica filtrado por su familia",
-        "description": "Esta llamada necesita que le pasemos como parámetro la familia del instrumento.",
+        "description": "Esta llamada necesita que le pasemos como parámetro la familia del instrumento y el token.",
+        "security": [{
+          "ApiKeyAuth": []  
+        }],  
         "parameters": [
           {
             "name": "family",
             "in": "path",
             "description": "La familia del instrumento",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "token",
+            "in": "header",
+            "description": "El token de la API",
             "required": true,
             "schema": {
               "type": "string"
