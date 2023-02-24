@@ -5,11 +5,11 @@ const router=Router();
 
 
 //Muestra todas las piezas
-router.get('/api/music/all',musiclist);
+router.get('/all',musiclist);
 
 
 //Muestra la pieza por nombre
-router.get('/api/music/name/:name',piece_name);
+router.get('/name/:name',piece_name);
 
 //ANTIGUAMENTE= module.exports = router
 export default router
