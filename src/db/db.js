@@ -7,11 +7,7 @@ const __dirname= dirname(fileURLToPath(import.meta.url));
 
 //Configurar variables de entorno
 dotenv.config({path:join(__dirname,'../env/.env')});
-console.log(process.env.DB_HOST);
-console.log(process.env.DB_USER);
-console.log(process.env.DB_PASSWORD);
-console.log(process.env.DB_DATABASE);
-console.log(process.env.DB_PORT);
+
 export const pool=createPool({
     host: process.env.DB_HOST,
     user: process.env.DB_USER,
