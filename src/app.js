@@ -18,6 +18,11 @@ const __dirname= dirname(fileURLToPath(import.meta.url));
 dotenv.config({path:join(__dirname,'./env/.env')})
 
 const port=process.env.PORT || 3000;
+console.log(process.env.DB_HOST);
+console.log(process.env.DB_USER);
+console.log(process.env.DB_PASSWORD);
+console.log(process.env.DB_DATABASE);
+console.log(process.env.DB_PORT);
 app.listen(port);
 console.log("El servidor está escuchando en el puerto:",port);
 
