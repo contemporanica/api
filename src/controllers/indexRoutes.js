@@ -95,22 +95,6 @@ export const composer_id = (req, res) => {
     });
 }
 
-//Muestra un instrumento filtrado por id
-export const instrument_id = (req, res) => {
-  pool.query("SELECT * FROM instrumento WHERE id_instrumento = '" + req.params.id + "'")
-    .then(rows => {
-      const array = rows[0].map(row => ({ 
-        id: row.id_instrumento, 
-        nombre: row.nombre,
-        idfamilia: row.id_familia
-      }));  
-      res.json(array);
-    })
-    .catch(err => {
-      console.error("Error executing the query: " + err.stack);
-    });
-}
-
 //Muestra familia filtrada por ID
 export const family_id = (req, res) => {
   pool.query("SELECT * FROM familia WHERE id_familia = '" + req.params.id + "'")
