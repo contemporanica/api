@@ -149,12 +149,12 @@ export const piece_name = (req, res) => {
 //Muestra familia por nombre
 export const family_name = (req, res) => {
   if (req.header('Authorization') === process.env.TOKEN) {
-    pool.query("SELECT * FROM instrumento WHERE familia = '" + req.params.family + "'")
+    pool.query("SELECT * FROM instrumento WHERE id_familia = '" + req.params.family + "'")
       .then(rows => {
         const array = rows[0].map(row => ({
           id: row.idinstrumento,
           nombre: row.nombre,
-          familia: row.familia
+          familia: row.id_familia
         }));
         res.json(array);
       })
