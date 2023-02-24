@@ -4,12 +4,12 @@ import { instrument_id, instrument_name, instruments} from "../controllers/index
 const router=Router();
 
 //Muestra todos los instrumentos
-router.get('/api/music/instrument/all',instruments);
+router.get('/all',instruments);
 
 //Muestra instrumento por nombre
-router.get('/api/music/instrument/:name',instrument_name);
+router.get('/:name',instrument_name);
 
 //Muestra instrumento por id
-router.get('/api/music/instrument/:id',instrument_id);
+router.get('/:id',instrument_id);
 
 export default router
