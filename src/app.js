@@ -16,6 +16,7 @@ const __dirname= dirname(fileURLToPath(import.meta.url));
 // Configurar variables de entorno
 dotenv.config({path:join(__dirname,'./env/.env')});
 
+
 // Configurar la autorización
 const authMiddleware = (req, res, next) => {
   // aquí va la lógica de autorización, por ejemplo:
@@ -26,6 +27,15 @@ const authMiddleware = (req, res, next) => {
     res.status(401).json({ message: 'The request requires authorization. Check if your application has the corresponding API_KEY' });
   }
 };
+
+const port=process.env.PORT || 3000;
+console.log(process.env.DB_HOST);
+console.log(process.env.DB_USER);
+console.log(process.env.DB_PASSWORD);
+console.log(process.env.DB_DATABASE);
+console.log(process.env.DB_PORT);
+app.listen(port);
+console.log("El servidor está escuchando en el puerto:",port);
 
 // Configurar el motor de plantillas
 app.set('view engine','ejs');
