@@ -8,6 +8,8 @@ import composerrouter from './routes/composer.routes.js';
 import pieccesrouter from './routes/pieces.routes.js';
 import instrumentrouter from './routes/instrument.routes.js';
 import dotenv from 'dotenv';
+import swaggerUi from 'swagger-ui-express';
+import swaggerDocument from './swagger/swagger.json' assert { type: "json" };;
 
 const app = express();
 const __dirname= dirname(fileURLToPath(import.meta.url));
@@ -27,3 +29,6 @@ app.use(familyrouter, composerrouter, pieccesrouter, instrumentrouter);
 
 //Configurar la carpeta Public para contenido estático
 app.use(express.static(join(__dirname,'public')));
+
+//Swagger
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument)); 
