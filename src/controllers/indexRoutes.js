@@ -47,6 +47,40 @@ export const composer_name = (req, res) => {
   }
 }
 
+//Muestra los datos de un compositor fitrado por nombre
+export const add_compositor = (req, res) => {
+  if (req.header('Authorization') === process.env.TOKEN) {
+    const map = new Map();
+    for (let property in req.body) {
+      if (property === 'email') {
+        map.set(property, req.body[property]);
+      };
+      //console.log(property + ': ' + req.body[property]);
+    }
+
+    selectFrom('compositor', map)
+      .then(resultado => {
+        if(resultado){
+          pool.execute("INSERT INTO compositor (nombre, email, password, biografia) VALUES ('" + req.body.nombre + "','" + req.body.email + "','" + req.body.password + "','" + req.body.biografia + "')")
+          .then(rows => {
+            res.json("Usuario añadido correctamente");
+          })
+          .catch(err => {
+            console.error("Error executing the query: " + err.stack);
+          });
+        }else{
+          res.json("Ya existe un usuario con ese email");
+        }
+      })
+      .catch(error => {
+        console.error(error);
+      });
+  }
+  else {
+    res.json('The request requires authorization. Check if your application has the corresponding API_KEY');
+  }
+}
+
 //Muestra un instrumento filtrado por nombre
 export const instrument_name = (req, res) => {
   if (req.header('Authorization') === process.env.TOKEN) {
@@ -223,4 +257,31 @@ export const composer = (req, res) => {
   } else {
     res.json('The request requires authorization. Check if your application has the corresponding API_KEY');
   }
+}
+
+function selectFrom(tabla, map) {
+  var query = "SELECT * FROM " + tabla + " WHERE ";
+  var index = map.size;
+  map.forEach(function (value, key) {
+    query += key + " = " + "'" + value + "' "
+    if (index > 1) {
+      query += 'AND '
+    };
+    index--;
+  });
+  //console.log('query: ' + query);
+  return pool.query(query)
+    .then(rows => {
+      //console.log(rows[0]);
+      if (rows[0][0] == null) {
+        //console.log('no se ha encontrado na');
+        return true;
+      } else {
+        //console.log('se ha encontrado algo');
+        return false;
+      }
+    })
+    .catch(err => {
+      console.error("Error executing the query: " + err.stack);
+    });
 }
