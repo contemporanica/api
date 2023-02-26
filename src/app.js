@@ -52,7 +52,7 @@ swaggerDocument.securityDefinitions = {
 };
 
 // Swagger
-app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
+app.use('/api/docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
 // Iniciar el servidor
 const port=process.env.PORT || 3000;
