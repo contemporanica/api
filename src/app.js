@@ -9,13 +9,14 @@ import instrumentrouter from './routes/instrument.routes.js';
 import dotenv from 'dotenv';
 import swaggerUi from 'swagger-ui-express';
 import swaggerDocument from './swagger/swagger.json' assert { type: "json" };
+import bodyParser from 'body-parser';
 
 const app = express();
 const __dirname= dirname(fileURLToPath(import.meta.url));
 
-// Configurar variables de entorno
-dotenv.config({path:join(__dirname,'./env/.env')});
-
+//Configurar variables de entorno
+dotenv.config({path:join(__dirname,'./env/.env')})
+app.use(bodyParser.json());
 
 // Configurar la autorización
 const authMiddleware = (req, res, next) => {
@@ -27,15 +28,6 @@ const authMiddleware = (req, res, next) => {
     res.status(401).json({ message: 'The request requires authorization. Check if your application has the corresponding API_KEY' });
   }
 };
-
-const port=process.env.PORT || 3000;
-console.log(process.env.DB_HOST);
-console.log(process.env.DB_USER);
-console.log(process.env.DB_PASSWORD);
-console.log(process.env.DB_DATABASE);
-console.log(process.env.DB_PORT);
-app.listen(port);
-console.log("El servidor está escuchando en el puerto:",port);
 
 // Configurar el motor de plantillas
 app.set('view engine','ejs');
@@ -64,5 +56,10 @@ app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
 // Iniciar el servidor
 const port=process.env.PORT || 3000;
+console.log(process.env.DB_HOST);
+console.log(process.env.DB_USER);
+console.log(process.env.DB_PASSWORD);
+console.log(process.env.DB_DATABASE);
+console.log(process.env.DB_PORT);
 app.listen(port);
 console.log("El servidor está escuchando en el puerto:",port);
