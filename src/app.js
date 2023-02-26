@@ -28,15 +28,6 @@ const authMiddleware = (req, res, next) => {
   }
 };
 
-const port=process.env.PORT || 3000;
-console.log(process.env.DB_HOST);
-console.log(process.env.DB_USER);
-console.log(process.env.DB_PASSWORD);
-console.log(process.env.DB_DATABASE);
-console.log(process.env.DB_PORT);
-app.listen(port);
-console.log("El servidor está escuchando en el puerto:",port);
-
 // Configurar el motor de plantillas
 app.set('view engine','ejs');
 app.set('views',join(__dirname,'views'));
@@ -60,9 +51,14 @@ swaggerDocument.securityDefinitions = {
 };
 
 // Swagger
-app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
+app.use('/api/docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
 // Iniciar el servidor
 const port=process.env.PORT || 3000;
+console.log(process.env.DB_HOST);
+console.log(process.env.DB_USER);
+console.log(process.env.DB_PASSWORD);
+console.log(process.env.DB_DATABASE);
+console.log(process.env.DB_PORT);
 app.listen(port);
 console.log("El servidor está escuchando en el puerto:",port);
