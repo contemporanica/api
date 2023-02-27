@@ -1,5 +1,5 @@
 import { Router } from "express";
-import {composer_name, composer,composer_id, add_compositor} from "../controllers/indexRoutes.js"
+import {composer_name, composer,composer_id, add_compositor, composerUpdate} from "../controllers/indexRoutes.js"
 
 const router=Router();
 
@@ -14,5 +14,8 @@ router.get('/:id',composer_id);
 
 //Añade un nuevo compositor
 router.put('/api/music/composer/add',add_compositor);
+
+//Actualiza el compositor por id
+router.put('/update/:id',composerUpdate);
 
 export default router

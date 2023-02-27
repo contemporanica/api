@@ -285,3 +285,56 @@ function selectFrom(tabla, map) {
       console.error("Error executing the query: " + err.stack);
     });
 }
+//Método para actualizar un compositor
+export const composerUpdate = (req, res) => {
+  //Si nos viene el email comprobamos que no exista
+  if(req.body.email){
+    const map = new Map(); // Crear un nuevo objeto Map vacío
+    for (let property in req.body) { // Recorrer las propiedades del cuerpo de la solicitud
+      if (property === 'email') { // Si la propiedad es 'email'
+        map.set(property, req.body[property]); // Almacenar el valor de la propiedad en el objeto Map
+      }
+    }
+    
+    selectFrom('compositor', map) // Verificar si ya existe un usuario con el mismo correo electrónico
+  
+    .then(resultado => {
+      if (resultado) { // Si el correo electrónico no está en uso
+        const fields = Object.keys(req.body) // Obtener las claves (propiedades) del objeto req.body
+          .filter(key => key !== 'id') // Filtrar las claves que no sean 'id'
+          .map(key => `${key}='${req.body[key]}'`) // Crear un array con cadenas de texto con el formato "clave='valor'"
+          .join(','); // Unir las cadenas de texto con una coma
+
+        const query = `UPDATE compositor SET ${fields} WHERE id_compositor=${req.params.id}`; // Crear la consulta de actualización dinámicamente
+
+        pool.execute(query) // Ejecutar la consulta de actualización
+          .then(rows => {
+            res.json(`OK: Se ha actualizado el compositor con id ${req.params.id} correctamente.`); // Enviar una respuesta de éxito al cliente
+          })
+          .catch(err => {
+            console.error("Error executing the query: " + err.stack); // Imprimir en la consola el error ocurrido al ejecutar la consulta
+          });
+      } else {
+        res.json("Ya existe un usuario con ese email"); // Enviar una respuesta de error al cliente
+      }
+    })
+    .catch(error => {
+      console.error(error); // Imprimir en la consola el error ocurrido al ejecutar la consulta
+    });
+  } else {
+    const fields = Object.keys(req.body) // Obtener las claves (propiedades) del objeto req.body
+          .filter(key => key !== 'id') // Filtrar las claves que no sean 'id'
+          .map(key => `${key}='${req.body[key]}'`) // Crear un array con cadenas de texto con el formato "clave='valor'"
+          .join(','); // Unir las cadenas de texto con una coma
+        console.log(`UPDATE compositor SET ${fields} WHERE id_compositor=${req.params.id}`);
+        const query = `UPDATE compositor SET ${fields} WHERE id_compositor=${req.params.id}`; // Crear la consulta de actualización dinámicamente
+
+        pool.execute(query) // Ejecutar la consulta de actualización
+          .then(rows => {
+            res.json(`OK: Se ha actualizado el compositor con id ${req.params.id} correctamente.`); // Enviar una respuesta de éxito al cliente
+          })
+          .catch(err => {
+            console.error("Error executing the query: " + err.stack); // Imprimir en la consola el error ocurrido al ejecutar la consulta
+          });
+  }
+};
