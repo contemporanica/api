@@ -28,7 +28,6 @@ export const musiclist = async (req, res) => {
 
 //Muestra los datos de un compositor fitrado por nombre
 export const composer_name = (req, res) => {
-  if (req.header('Authorization') === process.env.TOKEN) {
     pool.query("SELECT * FROM compositor WHERE nombre = '" + req.params.name + "'")
       .then(rows => {
         const array = rows[0].map(row => ({
@@ -41,15 +40,10 @@ export const composer_name = (req, res) => {
       .catch(err => {
         console.error("Error executing the query: " + err.stack);
       });
-
-  } else {
-    res.json('The request requires authorization. Check if your application has the corresponding API_KEY');
-  }
 }
 
 //Muestra los datos de un compositor fitrado por nombre
 export const add_compositor = (req, res) => {
-  if (req.header('Authorization') === process.env.TOKEN) {
     const map = new Map();
     for (let property in req.body) {
       if (property === 'email') {
@@ -75,15 +69,10 @@ export const add_compositor = (req, res) => {
       .catch(error => {
         console.error(error);
       });
-  }
-  else {
-    res.json('The request requires authorization. Check if your application has the corresponding API_KEY');
-  }
 }
 
 //Muestra un instrumento filtrado por nombre
 export const instrument_name = (req, res) => {
-  if (req.header('Authorization') === process.env.TOKEN) {
     pool.query("SELECT * FROM instrumento WHERE nombre = '" + req.params.name + "'")
       .then(rows => {
         const array = rows[0].map(row => ({
@@ -96,14 +85,10 @@ export const instrument_name = (req, res) => {
       .catch(err => {
         console.error("Error executing the query: " + err.stack);
       });
-  } else {
-    res.json('The request requires authorization. Check if your application has the corresponding API_KEY');
-  }
 }
 
 //Muestra un instrumento filtrado por id
 export const instrument_id = (req, res) => {
-  if (req.header('Authorization') === process.env.TOKEN) {
     pool.query("SELECT * FROM instrumento WHERE id_instrumento = '" + req.params.id + "'")
       .then(rows => {
         const array = rows[0].map(row => ({
@@ -116,14 +101,10 @@ export const instrument_id = (req, res) => {
       .catch(err => {
         console.error("Error executing the query: " + err.stack);
       });
-  } else {
-    res.json('The request requires authorization. Check if your application has the corresponding API_KEY');
-  }
 }
 
 //Muestra un compositor filtrado por ID
 export const composer_id = (req, res) => {
-  if (req.header('Authorization') === process.env.TOKEN) {
     pool.query("SELECT * FROM usuario WHERE id_compositor = '" + req.params.id + "'")
       .then(rows => {
         const array = rows[0].map(row => ({
@@ -136,14 +117,10 @@ export const composer_id = (req, res) => {
       .catch(err => {
         console.error("Error executing the query: " + err.stack);
       });
-  } else {
-    res.json('The request requires authorization. Check if your application has the corresponding API_KEY');
-  }
 }
 
 //Muestra familia filtrada por ID
 export const family_id = (req, res) => {
-  if (req.header('Authorization') === process.env.TOKEN) {
     pool.query("SELECT * FROM familia WHERE id_familia = '" + req.params.id + "'")
       .then(rows => {
         const array = rows[0].map(row => ({
@@ -155,14 +132,10 @@ export const family_id = (req, res) => {
       .catch(err => {
         console.error("Error executing the query: " + err.stack);
       });
-  } else {
-    res.json('The request requires authorization. Check if your application has the corresponding API_KEY');
-  }
 }
 
 //Muestra pieza por nombre
 export const piece_name = (req, res) => {
-  if (req.header('Authorization') === process.env.TOKEN) {
     pool.query("SELECT * FROM pieza WHERE nombre = '" + req.params.name + "'")
       .then(rows => {
         const array = rows[0].map(row => ({
@@ -175,14 +148,10 @@ export const piece_name = (req, res) => {
       .catch(err => {
         console.error("Error executing the query: " + err.stack);
       });
-  } else {
-    res.json('The request requires authorization. Check if your application has the corresponding API_KEY');
-  }
 }
 
 //Muestra familia por nombre
 export const family_name = (req, res) => {
-  if (req.header('Authorization') === process.env.TOKEN) {
     pool.query("SELECT * FROM instrumento WHERE id_familia = '" + req.params.family + "'")
       .then(rows => {
         const array = rows[0].map(row => ({
@@ -195,14 +164,10 @@ export const family_name = (req, res) => {
       .catch(err => {
         console.error("Error executing the query: " + err.stack);
       });
-  } else {
-    res.json('The request requires authorization. Check if your application has the corresponding API_KEY');
-  }
 }
 
 //Muestra todos los instrumentos de la BBDD
 export const instruments = (req, res) => {
-  if (req.header('Authorization') === process.env.TOKEN) {
     pool.query("SELECT * FROM instrumento")
       .then(rows => {
         const array = rows[0].map(row => ({
@@ -215,14 +180,10 @@ export const instruments = (req, res) => {
       .catch(err => {
         console.error("Error executing the query: " + err.stack);
       });
-  } else {
-    res.json('The request requires authorization. Check if your application has the corresponding API_KEY');
-  }
 }
 
 //Muestra todas los familias de la BBDD
 export const family = (req, res) => {
-  if (req.header('Authorization') === process.env.TOKEN) {
     pool.query("SELECT * FROM familia")
       .then(rows => {
         const array = rows[0].map(row => ({
@@ -234,14 +195,10 @@ export const family = (req, res) => {
       .catch(err => {
         console.error("Error executing the query: " + err.stack);
       });
-  } else {
-    res.json('The request requires authorization. Check if your application has the corresponding API_KEY');
-  }
 }
 
 //Muestra todos los compositores de la BBDD
 export const composer = (req, res) => {
-  if (req.header('Authorization') === process.env.TOKEN) {
     pool.query("SELECT * FROM compositor")
       .then(rows => {
         const array = rows[0].map(row => ({
@@ -254,9 +211,6 @@ export const composer = (req, res) => {
       .catch(err => {
         console.error("Error executing the query: " + err.stack);
       });
-  } else {
-    res.json('The request requires authorization. Check if your application has the corresponding API_KEY');
-  }
 }
 
 function selectFrom(tabla, map) {
