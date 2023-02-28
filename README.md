@@ -18,6 +18,6 @@
 ## BBDD
 [Enlace a la documentación de src/db/db.js](docs/dbjs/dbjs.md)
 ## Dockerfile
-[Enlace a la documentación de src/db/db.js](docs/Dockerfile/Dockerfile.md)
+[Enlace a la documentación de Dockerfile](docs/Dockerfile/Dockerfile.md)
 ## Docker-compose
-[Enlace a la documentación de src/db/db.js](docs/docker-compose/docker-compose.md)
+[Enlace a la documentación de docker-composer](docs/docker-compose/docker-compose.md)
