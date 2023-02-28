@@ -183,6 +183,87 @@
         }        
       }
     },  
+    "/api/music/composer/update/{id}": {
+      "put": {
+        "tags": ["Composers"],
+        "summary": "Actualiza un compositor de Contemporánica por su ID",
+        "description": "Esta llamada actualiza un compositor de Contemporánica por su ID. Se necesita proporcionar el ID del compositor, un token de autenticación y los nuevos valores del nombre y la biografía en el cuerpo de la petición.",
+        "security": [
+          {
+            "ApiKeyAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "El ID del compositor",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          },
+          {
+            "name": "token",
+            "in": "header",
+            "description": "El token de autenticación de la API",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "description": "En el body le pasamos todos los campos que queremos actualizar junto a su nuevo valor, solo se actualizarán los valores que enviemos.",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "nombre": {
+                    "type": "string"
+                  },
+                  "biografia": {
+                    "type": "string"
+                  },
+                  "email": {
+                    "type": "string"
+                  },
+                  "password": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK: Se ha actualizado el compositor correctamente.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "string"
+                },
+                "examples": {
+                  "example1": {
+                    "value": "OK: Se ha actualizado el compositor correctamente."
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "No se ha encontrado el compositor."
+          },
+          "500": {
+            "description": "Error interno del servidor."
+          }
+        }
+      }
+    },
     "/api/music/instrument/all": {
       "get": {
         "tags": ["Instruments"],
