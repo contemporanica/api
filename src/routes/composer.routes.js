@@ -13,9 +13,9 @@ router.get('/:name',composer_name);
 router.get('/:id',composer_id);
 
 //Añade un nuevo compositor
-router.put('/api/music/composer/add',add_compositor);
+router.post('/api/music/composer/add',add_compositor);
 
 //Actualiza el compositor por id
-router.put('/update/:id',composerUpdate);
+router.post('/update/:id',composerUpdate);
 
 export default router
