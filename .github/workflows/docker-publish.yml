@@ -1,9 +1,8 @@
 name: ci
 
 on:
-  pull_request:
-    branches: 
-      -main
+   pull_request:
+    types: [closed]
 
 jobs:
   docker:
@@ -27,4 +26,4 @@ jobs:
         if: github.event.pull_request.base.ref == 'refs/heads/main' && github.event.pull_request.merged == true
         with:
           push: true
-          tags: contemporanica/api:latest, contemporanica/api:latest
+          tags: contemporanica/api:latest, contemporanica/api:${{github.event.pull_request.title}}
