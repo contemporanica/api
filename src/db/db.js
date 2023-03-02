@@ -1,11 +1,19 @@
 import{createPool} from 'mysql2/promise'
+import { dirname, join } from 'path';
+import { fileURLToPath } from 'url';
+import dotenv from 'dotenv';
+import { Console } from 'console';
+const __dirname= dirname(fileURLToPath(import.meta.url));
+
+//Configurar variables de entorno
+dotenv.config({path:join(__dirname,'../env/.env')});
 
 export const pool=createPool({
-    host: "localhost",
-    user: 'root',
-    password: "",
-    database:"contemporanica",
-    port: 3306
+    host: process.env.DB_HOST,
+    user: process.env.DB_USER,
+    password: process.env.DB_PASSWORD,
+    database: process.env.DB_DATABASE,
+    port: process.env.DB_PORT
 })
 
 async function connection() {
@@ -32,6 +40,5 @@ async function connection() {
       throw new Error("Unable to retrieve instrumentos");
     }
   }
-  
 connection();
 
