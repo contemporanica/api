@@ -4,7 +4,7 @@ import { pool, getInstrumentos } from '../db/db.js'
 export const musiclist = async (req, res) => {
   try {
     const musiclist = await pool.query(
-      "SELECT p.id_pieza as pieza_id_pieza, p.id_usuario as pieza_id_usuario,p.nombre as pieza_nombre,p.datos as pieza_datos,u.nombre as usuario_nombre, u.lista_favoritos as usuario_lista_favoritos,u.biografia as usuario_biografia,u.id_usuario as usuario_id_usuario FROM pieza p INNER JOIN usuario u ON p.id_usuario=u.id_usuario"
+      "SELECT p.id_pieza as pieza_id_pieza, p.id_compositor as pieza_id_usuario,p.nombre as pieza_nombre,p.datos as pieza_datos,u.nombre as usuario_nombre, u.lista_favoritos as usuario_lista_favoritos,u.biografia as usuario_biografia,u.id_compositor as usuario_id_usuario FROM pieza p INNER JOIN compositor u ON p.id_compositor=u.id_compositor"
     );
 
     const array = musiclist[0].map(async row => {
@@ -106,12 +106,14 @@ export const instrument_id = (req, res) => { //define una función que recibe un
 }
 
 //Muestra un compositor filtrado por ID
-export const composer_id = (req, res) => { //Se define una función que recibe una solicitud y una respuesta como parámetros
-    pool.query("SELECT * FROM usuario WHERE id_compositor = '" + req.params.id + "'") //Se realiza una consulta a la tabla 'usuario' filtrando por el ID del compositor que se recibe en la solicitud
+export const composer_id = (req, res) => { //Se define una función que recibe una solicitud y una respuesta como parámetros 
+  pool.query("SELECT * FROM compositor WHERE id_compositor = " + req.params.id) //Se realiza una consulta a la tabla 'compositor' filtrando por el ID del compositor que se recibe en la solicitud
       .then(rows => { //Si la consulta se ejecuta correctamente, se procesa el resultado
+        console.log(rows);
         const array = rows[0].map(row => ({ //Se convierte el resultado en un array de objetos
-          id: row.idusuario, //Se asigna el valor de la columna 'idusuario' a la propiedad 'id' del objeto
+          id: row.id_compositor, //Se asigna el valor de la columna 'id_compositor' a la propiedad 'id' del objeto
           nombre: row.nombre, //Se asigna el valor de la columna 'nombre' a la propiedad 'nombre'
+          email: row.email, //Se asigna el valor de la columna 'email' a la propiedad 'biografia' del objeto
           biografia: row.biografia //Se asigna el valor de la columna 'biografia' a la propiedad 'biografia' del objeto
         }));
         res.json(array); //Se devuelve el resultado en formato JSON

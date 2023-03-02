@@ -48,7 +48,7 @@
         }
       }
     },
-    "/api/music/composer/{name}": {
+    "/api/music/composer/name/{name}": {
       "get": {
         "tags": ["Composers"],
         "summary": "Esta llamada devuelve un compositor de Contemporánica filtrado por su nombre",
@@ -115,7 +115,7 @@
         }        
       }
     },
-    "/api/music/composer/{id}": {
+    "/api/music/composer/id/{id}": {
       "get": {
         "tags": ["Composers"],
         "summary": "Esta llamada devuelve un compositor de Contemporánica filtrado por su ID",
