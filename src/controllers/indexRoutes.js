@@ -4,7 +4,7 @@ import { pool, getInstrumentos } from '../db/db.js'
 export const musiclist = async (req, res) => {
   try {
     const musiclist = await pool.query(
-      "SELECT p.id_pieza as pieza_id_pieza, p.id_compositor as pieza_id_usuario,p.nombre as pieza_nombre,p.datos as pieza_datos,u.nombre as usuario_nombre, u.lista_favoritos as usuario_lista_favoritos,u.biografia as usuario_biografia,u.id_compositor as usuario_id_usuario FROM pieza p INNER JOIN compositor u ON p.id_compositor=u.id_compositor"
+      "SELECT p.id_pieza as pieza_id_pieza, p.id_compositor as pieza_id_usuario,p.nombre as pieza_nombre,p.datos as pieza_datos,u.nombre as usuario_nombre,u.biografia as usuario_biografia,u.id_compositor as usuario_id_usuario FROM pieza p INNER JOIN compositor u ON p.id_compositor=u.id_compositor"
     );
 
     const array = musiclist[0].map(async row => {
@@ -34,7 +34,8 @@ export const composer_name = (req, res) => { //Se realiza una consulta a la base
         const array = rows[0].map(row => ({
           id: row.id_compositor,
           nombre: row.nombre,
-          biografia: row.biografia
+          biografia: row.biografia, //Se asigna el valor de la columna 'biografia' a la propiedad 'biografia' del objeto
+          email: row.email //Se asigna el valor de la columna 'email' a la propiedad 'email' del objeto
         }));
         res.json(array); //Se devuelve la respuesta en formato JSON con la información del compositor encontrado
       })
@@ -205,9 +206,10 @@ export const composer = (req, res) => {
     pool.query("SELECT * FROM compositor")
       .then(rows => {
         const array = rows[0].map(row => ({ //Crea un array con los objetos obtenidos del resultado de la consulta
-          id: row.idcompositor,//Se asigna el valor de la columna 'idusuario' a la propiedad 'id' del objeto
+          id: row.id_compositor,//Se asigna el valor de la columna 'idusuario' a la propiedad 'id' del objeto
           nombre: row.nombre, //Se asigna el valor de la columna 'nombre' a la propiedad 'nombre'
-          biografia: row.biografia //Se asigna el valor de la columna 'biografia' a la propiedad 'biografia' del objeto
+          biografia: row.biografia, //Se asigna el valor de la columna 'biografia' a la propiedad 'biografia' del objeto
+          email: row.email //Se asigna el valor de la columna 'email' a la propiedad 'email' del objeto
         }));
         res.json(array); //Envía la respuesta al cliente con el array de objetos creado anteriormente en formato JSON
       })

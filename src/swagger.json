@@ -1,0 +1,95 @@
+{
+  "openapi": "3.0.1",
+  "info": {
+    "title": "REST API for Contemporanica API Documentation",
+    "version": "1.0.0"
+  },
+  "schemes": ["http"],
+  "servers": [{ "url": "http://localhost:4000/" }],
+  "paths": {
+    "/api/music/composer/all": {
+      "get": {
+        "tags": ["Composers"],
+        "summary": "Esta llamada devuelve todos los compositores de Contemporanica",
+        "description": "Esta llamada no necesita que le pasemos ningún parámetro, devuelve todos los compositores de Contemporanica",
+        "requestBody": {
+          "required": false
+        },
+        "responses": {
+          "201": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+              }
+            }
+          },
+          "404": { "description": "Not found" },
+          "500": { "description": "Internal server error" }
+        }
+      }
+    },
+    "/api/music/instrument/all": {
+      "get": {
+        "tags": ["Instruments"],
+        "summary": "Esta llamada devuelve todos los instrumentos de Contemporanica",
+        "description": "Esta llamada no necesita que le pasemos ningún parámetro, devuelve todos los instrumentos de Contemporanica",
+        "requestBody": {
+          "required": false
+        },
+        "responses": {
+          "201": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+              }
+            }
+          },
+          "404": { "description": "Not found" },
+          "500": { "description": "Internal server error" }
+        }
+      }
+    },
+    "/api/music/all": {
+      "get": {
+        "tags": ["Pieces"],
+        "summary": "Esta llamada devuelve todas las piezas de Contemporanica",
+        "description": "Esta llamada no necesita que le pasemos ningún parámetro, devuelve todas las piezas de Contemporanica",
+        "requestBody": {
+          "required": false
+        },
+        "responses": {
+          "201": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+              }
+            }
+          },
+          "404": { "description": "Not found" },
+          "500": { "description": "Internal server error" }
+        }
+      }
+    },
+    "/api/music/family/all": {
+      "get": {
+        "tags": ["Families"],
+        "summary": "Esta llamada devuelve todas las familias de Contemporanica",
+        "description": "Esta llamada no necesita que le pasemos ningún parámetro, devuelve todas las familias de Contemporanica",
+        "requestBody": {
+          "required": false
+        },
+        "responses": {
+          "201": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+              }
+            }
+          },
+          "404": { "description": "Not found" },
+          "500": { "description": "Internal server error" }
+        }
+      }
+    }
+  }
+}

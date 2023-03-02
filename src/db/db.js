@@ -28,7 +28,7 @@ async function connection() {
 
   export async function getInstrumentos(id_pieza){
     try {
-      const result = await pool.query("SELECT i.nombre as instrumentoNombre,i.familia as instrumentoFamilia,i.id_instrumento as instrumentoID FROM pieza_instrumento pi INNER JOIN instrumento i ON i.id_instrumento=pi.id_instrumento WHERE id_pieza = " + id_pieza + "");
+      const result = await pool.query("SELECT i.nombre as instrumentoNombre,i.id_familia as instrumentoFamilia,i.id_instrumento as instrumentoID FROM pieza_instrumento pi INNER JOIN instrumento i ON i.id_instrumento=pi.id_instrumento WHERE id_pieza = " + id_pieza + "");
       const instrumentos = result[0].map(row => ({
         id: row.instrumentoID,
         familia:row.instrumentoFamilia,
