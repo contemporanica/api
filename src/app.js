@@ -22,7 +22,7 @@ app.use(bodyParser.json());
 const authMiddleware = (req, res, next) => {
   // aquí va la lógica de autorización, por ejemplo:
   const token = req.headers.token;
-  if (token === 'a944114ba4149684eb4e6b00e6093fdb') {
+  if (token === process.env.TOKEN) {
     next();
   } else {
     res.status(401).json({ message: 'The request requires authorization. Check if your application has the corresponding API_KEY' });

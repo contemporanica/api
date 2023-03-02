@@ -183,6 +183,77 @@
         }        
       }
     },  
+    "/api/music/composer/add": {
+      "post": {
+        "tags": ["Composers"],
+        "summary": "Añade un compositor a Contemporánica",
+        "description": "Esta llamada añade un compositor de Contemporánica. Se necesita proporcionar el nombre, email, password y biografia.",
+        "security": [
+          {
+            "ApiKeyAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "token",
+            "in": "header",
+            "description": "El token de autenticación de la API",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "description": "En el body le pasamos todos los campos que queremos actualizar junto a su nuevo valor, solo se actualizarán los valores que enviemos.",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "nombre": {
+                    "type": "string"
+                  },
+                  "biografia": {
+                    "type": "string"
+                  },
+                  "email": {
+                    "type": "string"
+                  },
+                  "password": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK: Se ha añadido el compositor correctamente.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "string"
+                },
+                "examples": {
+                  "example1": {
+                    "value": "OK: Se ha añadido el compositor correctamente."
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "No se ha añadido al compositor."
+          },
+          "500": {
+            "description": "Error interno del servidor."
+          }
+        }
+      }
+    },
     "/api/music/composer/update/{id}": {
       "put": {
         "tags": ["Composers"],
@@ -296,7 +367,7 @@
         }
       }
     },
-    "/api/music/instrument/{name}": {
+    "/api/music/instrument/name/{name}": {
       "get": {
         "tags": ["Instruments"],
         "summary": "Esta llamada devuelve un instrumento musical filtrado por su nombre",
@@ -354,7 +425,65 @@
         }        
       }
     },
-    
+    "/api/music/instrument/id/{id}": {
+      "get": {
+        "tags": ["Instruments"],
+        "summary": "Esta llamada devuelve un instrumento musical filtrado por su id",
+        "description": "Esta llamada necesita que le pasemos como parámetro el id del instrumento y el token.",
+        "security": [{
+          "ApiKeyAuth": []  
+        }],  
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "El id del instrumento",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          },
+          {
+            "name": "token",
+            "in": "header",
+            "description": "El token de la API",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "nombre": {
+                      "type": "string"
+                    }
+                  }
+                },
+                "examples": {
+                  "Ejemplo 1": {
+                    "nombre": "Guitarra"
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not found"
+          },
+          "500": {
+            "description": "Internal server error"
+          }
+        }        
+      }
+    },
     "/api/music/all": {
       "get": {
         "tags": ["Pieces"],
@@ -477,7 +606,7 @@
         }
       }
     },
-    "/api/music/family/{family}": {
+    "/api/music/family/name/{family}": {
       "get": {
         "tags": ["Families"],
         "summary": "Esta llamada devuelve un instrumento de Contemporánica filtrado por su familia",
@@ -493,6 +622,65 @@
             "required": true,
             "schema": {
               "type": "string"
+            }
+          },
+          {
+            "name": "token",
+            "in": "header",
+            "description": "El token de la API",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "nombre": {
+                      "type": "string"
+                    }
+                  }
+                },
+                "examples": {
+                  "Ejemplo 1": {
+                    "nombre": "Percusión"
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not found"
+          },
+          "500": {
+            "description": "Internal server error"
+          }
+        }
+      }
+    },
+    "/api/music/family/id/{id}": {
+      "get": {
+        "tags": ["Families"],
+        "summary": "Esta llamada devuelve un instrumento de Contemporánica filtrado por su id",
+        "description": "Esta llamada necesita que le pasemos como parámetro el id del instrumento y el token.",
+        "security": [{
+          "ApiKeyAuth": []  
+        }],  
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "La familia del instrumento",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
             }
           },
           {

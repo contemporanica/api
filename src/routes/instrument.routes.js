@@ -7,9 +7,9 @@ const router=Router();
 router.get('/all',instruments);
 
 //Muestra instrumento por nombre
-router.get('/:name',instrument_name);
+router.get('/name/:name',instrument_name);
 
 //Muestra instrumento por id
-router.get('/:id',instrument_id);
+router.get('/id/:id',instrument_id);
 
 export default router
