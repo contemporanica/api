@@ -27,126 +27,128 @@ export const musiclist = async (req, res) => {
 }
 
 //Muestra los datos de un compositor fitrado por nombre
-export const composer_name = (req, res) => {
-    pool.query("SELECT * FROM compositor WHERE nombre = '" + req.params.name + "'")
-      .then(rows => {
+export const composer_name = (req, res) => { //Se realiza una consulta a la base de datos para obtener los datos del compositor cuyo nombre coincide con el valor pasado en el parámetro "name"
+  //Se utiliza el objeto "pool" para ejecutar la consulta
+    pool.query("SELECT * FROM compositor WHERE nombre = '" + req.params.name + "'") //Se ejecuta la consulta y se concatenan los valores de los parámetros para formar la cadena de consulta SQL
+      .then(rows => { //Se mapea el resultado obtenido para seleccionar solo los campos que se quieren mostrar en la respuesta
         const array = rows[0].map(row => ({
           id: row.id_compositor,
           nombre: row.nombre,
           biografia: row.biografia
         }));
-        res.json(array);
+        res.json(array); //Se devuelve la respuesta en formato JSON con la información del compositor encontrado
       })
       .catch(err => {
-        console.error("Error executing the query: " + err.stack);
+        console.error("Error executing the query: " + err.stack); //Se muestra un mensaje de error si no se pudo ejecutar la consulta correctamente
       });
 }
 
-//Muestra los datos de un compositor fitrado por nombre
-export const add_compositor = (req, res) => {
-    const map = new Map();
-    for (let property in req.body) {
+//Añade un nuevo Compositor
+export const add_compositor = (req, res) => { // Define una función llamada "add_compositor" que recibe un objeto de petición (req) y un objeto de respuesta (res)
+    const map = new Map(); // Crea un nuevo mapa vacío para almacenar las propiedades del cuerpo de la solicitud
+    for (let property in req.body) { // Itera a través de las propiedades del cuerpo de la solicitud y agrega la propiedad 'email' al mapa
       if (property === 'email') {
         map.set(property, req.body[property]);
       };
       //console.log(property + ': ' + req.body[property]);
     }
 
-    selectFrom('compositor', map)
+    selectFrom('compositor', map) // Llama a la función "selectFrom" que devuelve un booleano con el resultado de la consulta SQL(true / false)
       .then(resultado => {
-        if(resultado){
+        if(resultado){ // Verifica la devolución del metodo
+          // Ejecuta una consulta SQL INSERT para agregar un nuevo compositor a la base de datos
           pool.execute("INSERT INTO compositor (nombre, email, password, biografia) VALUES ('" + req.body.nombre + "','" + req.body.email + "','" + req.body.password + "','" + req.body.biografia + "')")
           .then(rows => {
-            res.json("Usuario añadido correctamente");
+            res.json("Usuario añadido correctamente"); // Envía una respuesta JSON con un mensaje de éxito si la consulta INSERT se ejecuta correctamente
           })
           .catch(err => {
-            console.error("Error executing the query: " + err.stack);
+            console.error("Error executing the query: " + err.stack); // Si hay un error en la consulta INSERT, registra el error en la consola
           });
         }else{
-          res.json("Ya existe un usuario con ese email");
+          res.json("Ya existe un usuario con ese email"); // Envía una respuesta JSON con un mensaje de error si ya existe un usuario con la dirección de correo electrónico proporcionada
         }
       })
       .catch(error => {
-        console.error(error);
+        console.error(error); // Si hay un error en la consulta SELECT, registra el error en la consola
       });
 }
 
 //Muestra un instrumento filtrado por nombre
-export const instrument_name = (req, res) => {
+export const instrument_name = (req, res) => { //Envía una consulta SQL a la base de datos para seleccionar los datos de la tabla "instrumento" filtrados por el parámetro "name" recibido en la solicitud
     pool.query("SELECT * FROM instrumento WHERE nombre = '" + req.params.name + "'")
-      .then(rows => {
+      .then(rows => { //Crea un nuevo array con los datos seleccionados de la base de datos y lo asigna a la variable "array"
         const array = rows[0].map(row => ({
           id: row.idinstrumento,
           nombre: row.nombre,
           familia: row.familia
         }));
-        res.json(array);
+        res.json(array); //Envía la respuesta HTTP con el array de datos seleccionados en formato JSON
       })
       .catch(err => {
-        console.error("Error executing the query: " + err.stack);
+        console.error("Error executing the query: " + err.stack); //Muestra un mensaje de error en la consola si ocurre un error al ejecutar la consulta SQL
       });
 }
 
 //Muestra un instrumento filtrado por id
-export const instrument_id = (req, res) => {
-    pool.query("SELECT * FROM instrumento WHERE id_instrumento = '" + req.params.id + "'")
-      .then(rows => {
-        const array = rows[0].map(row => ({
-          id: row.id_instrumento,
-          nombre: row.nombre,
-          idfamilia: row.id_familia
+export const instrument_id = (req, res) => { //define una función que recibe una solicitud y una respuesta
+    pool.query("SELECT * FROM instrumento WHERE id_instrumento = '" + req.params.id + "'") //ejecuta una consulta a la base de datos con el id de instrumento recibido en la solicitud
+      .then(rows => { //si la consulta fue exitosa
+        const array = rows[0].map(row => ({ //crea un arreglo con los resultados
+          id: row.id_instrumento, //agrega el id del instrumento
+          nombre: row.nombre, //agrega el nombre del instrumento
+          idfamilia: row.id_familia //agrega el id de la familia del instrumento
         }));
-        res.json(array);
+        res.json(array); //envía una respuesta en formato JSON con el arreglo de resultados
       })
-      .catch(err => {
-        console.error("Error executing the query: " + err.stack);
+      .catch(err => { //si la consulta falla
+        console.error("Error executing the query: " + err.stack); //imprime un mensaje de error en la consola
       });
 }
 
 //Muestra un compositor filtrado por ID
-export const composer_id = (req, res) => {
-    pool.query("SELECT * FROM usuario WHERE id_compositor = '" + req.params.id + "'")
-      .then(rows => {
-        const array = rows[0].map(row => ({
-          id: row.idusuario,
-          nombre: row.nombre,
-          biografia: row.biografia
+export const composer_id = (req, res) => { //Se define una función que recibe una solicitud y una respuesta como parámetros
+    pool.query("SELECT * FROM usuario WHERE id_compositor = '" + req.params.id + "'") //Se realiza una consulta a la tabla 'usuario' filtrando por el ID del compositor que se recibe en la solicitud
+      .then(rows => { //Si la consulta se ejecuta correctamente, se procesa el resultado
+        const array = rows[0].map(row => ({ //Se convierte el resultado en un array de objetos
+          id: row.idusuario, //Se asigna el valor de la columna 'idusuario' a la propiedad 'id' del objeto
+          nombre: row.nombre, //Se asigna el valor de la columna 'nombre' a la propiedad 'nombre'
+          biografia: row.biografia //Se asigna el valor de la columna 'biografia' a la propiedad 'biografia' del objeto
         }));
-        res.json(array);
+        res.json(array); //Se devuelve el resultado en formato JSON
       })
-      .catch(err => {
+      .catch(err => { //Si la consulta no se ejecuta correctamente, se muestra un mensaje de error en la consola
         console.error("Error executing the query: " + err.stack);
       });
 }
 
 //Muestra familia filtrada por ID
 export const family_id = (req, res) => {
-    pool.query("SELECT * FROM familia WHERE id_familia = '" + req.params.id + "'")
+    pool.query("SELECT * FROM familia WHERE id_familia = '" + req.params.id + "'") //Selecciona todas las filas de la tabla "familia" donde el valor de la columna "id_familia" coincide con el parámetro de la solicitud "id"
       .then(rows => {
-        const array = rows[0].map(row => ({
-          id: row.id_familia,
-          nombre: row.nombre
+        const array = rows[0].map(row => ({ //Crea un array con los objetos obtenidos del resultado de la consulta
+          id: row.id_familia, //Almacena el valor de la columna "id_familia" de la fila actual en la propiedad "id" del objeto actual
+          nombre: row.nombre //Almacena el valor de la columna "nombre" de la fila actual en la propiedad "nombre" del objeto actual
         }));
-        res.json(array);
+        res.json(array); //Envía la respuesta al cliente con el array de objetos creado anteriormente en formato JSON
       })
       .catch(err => {
-        console.error("Error executing the query: " + err.stack);
+        console.error("Error executing the query: " + err.stack); //Si se produce un error durante la ejecución de la consulta, lo muestra en la consola
       });
 }
 
 //Muestra pieza por nombre
 export const piece_name = (req, res) => {
-    pool.query("SELECT * FROM pieza WHERE nombre = '" + req.params.name + "'")
+    pool.query("SELECT * FROM pieza WHERE nombre = '" + req.params.name + "'") //Selecciona todas las filas de la tabla "pieza" donde el valor de la columna "nombre" coincide con el parámetro de la solicitud "name"
       .then(rows => {
-        const array = rows[0].map(row => ({
-          id: row.idpieza,
-          nombre: row.nombre,
-          datos: row.datos
+        const array = rows[0].map(row => ({ //Crea un array con los objetos obtenidos del resultado de la consulta
+          id: row.idpieza, //Almacena el valor de la columna "idpieza" de la fila actual en la propiedad "id" del objeto actual
+          nombre: row.nombre, //Almacena el valor de la columna "nombre" de la fila actual en la propiedad "nombre" del objeto actual
+          datos: row.datos //Almacena el valor de la columna "datos" de la fila actual en la propiedad "datos" del objeto actual
         }));
-        res.json(array);
+        res.json(array); //Envía la respuesta al cliente con el array de objetos creado anteriormente en formato JSON
       })
       .catch(err => {
-        console.error("Error executing the query: " + err.stack);
+        console.error("Error executing the query: " + err.stack); //Si se produce un error durante la ejecución de la consulta, lo muestra en la consola
       });
 }
 
@@ -154,15 +156,15 @@ export const piece_name = (req, res) => {
 export const family_name = (req, res) => {
     pool.query("SELECT * FROM instrumento WHERE id_familia = '" + req.params.family + "'")
       .then(rows => {
-        const array = rows[0].map(row => ({
-          id: row.idinstrumento,
-          nombre: row.nombre,
-          familia: row.id_familia
+        const array = rows[0].map(row => ({ //Crea un array con los objetos obtenidos del resultado de la consulta
+          id: row.idinstrumento, //Almacena el valor de la columna "idinstrumento" de la fila actual en la propiedad "id" del objeto actual
+          nombre: row.nombre, //Almacena el valor de la columna "nombre" de la fila actual en la propiedad "nombre" del objeto actual
+          familia: row.id_familia //Almacena el valor de la columna "id_familia" de la fila actual en la propiedad "
         }));
-        res.json(array);
+        res.json(array); //Envía la respuesta al cliente con el array de objetos creado anteriormente en formato JSON
       })
       .catch(err => {
-        console.error("Error executing the query: " + err.stack);
+        console.error("Error executing the query: " + err.stack); //Si se produce un error durante la ejecución de la consulta, lo muestra en la consola
       });
 }
 
@@ -170,15 +172,15 @@ export const family_name = (req, res) => {
 export const instruments = (req, res) => {
     pool.query("SELECT * FROM instrumento")
       .then(rows => {
-        const array = rows[0].map(row => ({
-          id: row.idinstrumento,
-          nombre: row.nombre,
-          familia: row.familia
+        const array = rows[0].map(row => ({ //Crea un array con los objetos obtenidos del resultado de la consulta
+          id: row.idinstrumento,//agrega el id del instrumento
+          nombre: row.nombre, //agrega el nombre del instrumento
+          idfamilia: row.familia //agrega el nombre de la familia del instrumento
         }));
-        res.json(array);
+        res.json(array); //Envía la respuesta al cliente con el array de objetos creado anteriormente en formato JSON
       })
       .catch(err => {
-        console.error("Error executing the query: " + err.stack);
+        console.error("Error executing the query: " + err.stack); //Si se produce un error durante la ejecución de la consulta, lo muestra en la consola
       });
 }
 
@@ -186,14 +188,14 @@ export const instruments = (req, res) => {
 export const family = (req, res) => {
     pool.query("SELECT * FROM familia")
       .then(rows => {
-        const array = rows[0].map(row => ({
-          id: row.idfamilia,
-          nombre: row.nombre
+        const array = rows[0].map(row => ({ //Crea un array con los objetos obtenidos del resultado de la consulta
+          id: row.idfamilia, //Almacena el valor de la columna "id_familia" de la fila actual en la propiedad "
+          nombre: row.nombre //Almacena el valor de la columna "nombre" de la fila actual en la propiedad "nombre" del objeto actual
         }));
-        res.json(array);
+        res.json(array); //Envía la respuesta al cliente con el array de objetos creado anteriormente en formato JSON
       })
       .catch(err => {
-        console.error("Error executing the query: " + err.stack);
+        console.error("Error executing the query: " + err.stack); //Si se produce un error durante la ejecución de la consulta, lo muestra en la consola
       });
 }
 
@@ -201,15 +203,15 @@ export const family = (req, res) => {
 export const composer = (req, res) => {
     pool.query("SELECT * FROM compositor")
       .then(rows => {
-        const array = rows[0].map(row => ({
-          id: row.idcompositor,
-          nombre: row.nombre,
-          biografia: row.biografia
+        const array = rows[0].map(row => ({ //Crea un array con los objetos obtenidos del resultado de la consulta
+          id: row.idcompositor,//Se asigna el valor de la columna 'idusuario' a la propiedad 'id' del objeto
+          nombre: row.nombre, //Se asigna el valor de la columna 'nombre' a la propiedad 'nombre'
+          biografia: row.biografia //Se asigna el valor de la columna 'biografia' a la propiedad 'biografia' del objeto
         }));
-        res.json(array);
+        res.json(array); //Envía la respuesta al cliente con el array de objetos creado anteriormente en formato JSON
       })
       .catch(err => {
-        console.error("Error executing the query: " + err.stack);
+        console.error("Error executing the query: " + err.stack); //Si se produce un error durante la ejecución de la consulta, lo muestra en la consola
       });
 }
 
