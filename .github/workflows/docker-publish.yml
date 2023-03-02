@@ -3,12 +3,10 @@ name: ci
 on:
   pull_request:
     types: [closed]
-    branches:
-      -main
-
 jobs:
   docker:
     runs-on: ubuntu-latest
+    if: github.event.pull_request.base.ref == 'refs/heads/main' && github.event.pull_request.merged == true
     steps:
       -
         name: Set up QEMU
