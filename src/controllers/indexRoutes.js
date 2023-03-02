@@ -154,12 +154,10 @@ export const piece_name = (req, res) => {
 
 //Muestra familia por nombre
 export const family_name = (req, res) => {
-    pool.query("SELECT * FROM instrumento WHERE id_familia = '" + req.params.family + "'")
+    pool.query("SELECT i.nombre as nombreInstrumento FROM `instrumento` i inner join familia f ON f.id_familia = i.id_familia WHERE f.nombre ='" + req.params.family+"'")
       .then(rows => {
         const array = rows[0].map(row => ({ //Crea un array con los objetos obtenidos del resultado de la consulta
-          id: row.idinstrumento, //Almacena el valor de la columna "idinstrumento" de la fila actual en la propiedad "id" del objeto actual
-          nombre: row.nombre, //Almacena el valor de la columna "nombre" de la fila actual en la propiedad "nombre" del objeto actual
-          familia: row.id_familia //Almacena el valor de la columna "id_familia" de la fila actual en la propiedad "
+          nombre: row.nombreInstrumento //Almacena el valor de la columna "nombre" de la fila actual en la propiedad "nombre" del objeto actual
         }));
         res.json(array); //Envía la respuesta al cliente con el array de objetos creado anteriormente en formato JSON
       })
@@ -188,8 +186,9 @@ export const instruments = (req, res) => {
 export const family = (req, res) => {
     pool.query("SELECT * FROM familia")
       .then(rows => {
+        console.log(rows);
         const array = rows[0].map(row => ({ //Crea un array con los objetos obtenidos del resultado de la consulta
-          id: row.idfamilia, //Almacena el valor de la columna "id_familia" de la fila actual en la propiedad "
+          id: row.id_familia, //Almacena el valor de la columna "id_familia" de la fila actual en la propiedad "
           nombre: row.nombre //Almacena el valor de la columna "nombre" de la fila actual en la propiedad "nombre" del objeto actual
         }));
         res.json(array); //Envía la respuesta al cliente con el array de objetos creado anteriormente en formato JSON
