@@ -24,3 +24,7 @@ Creamos un método de manera dinámica para la comprobación de los datos en las
 **Añadir un nuevo Compositor**
 
 ![](añadir_compositor.png)
+
+**Comprobar datos LOGIN**
+
+![](login.png)
