@@ -3,10 +3,10 @@ name: ci
 on:
   pull_request:
     types: [closed]
+
 jobs:
   docker:
     runs-on: ubuntu-latest
-    if: github.event.pull_request.base.ref == 'refs/heads/main' && github.event.pull_request.merged == true
     steps:
       -
         name: Set up QEMU
@@ -23,6 +23,7 @@ jobs:
       -
         name: Build and push
         uses: docker/build-push-action@v3
+        if: github.event.pull_request.base.ref == 'refs/heads/main' && github.event.pull_request.merged == true
         with:
           push: true
-          tags: contemporanica/api:latest , contemporanica/api:latest
+          tags: contemporanica/api:latest, contemporanica/api:latest
