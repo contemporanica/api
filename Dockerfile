@@ -12,4 +12,3 @@ EXPOSE 4000
 # run the app
 # command to run when intantiate an image
 CMD ["npm","start"]
-
