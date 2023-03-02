@@ -17,7 +17,11 @@ Se puede mostrar el compositor por nombre y por id con los métodos GET correspo
 
 ![](Aspose.Words.985a7e06-f289-47e8-924f-7bacbf936a18.004.png)
 
-` `Finalmente, se añade un nuevo compositor con el método POST y la ruta "/api/music/composer/add". 
+Se actualiza un compositor con el método PUT y la ruta "/update/:id". 
+
+![](Captura de pantalla 2023-03-02 005524.png)
+
+Finalmente, se añade un nuevo compositor con el método POST y la ruta "/api/music/composer/add". 
 
 ![](Aspose.Words.985a7e06-f289-47e8-924f-7bacbf936a18.005.png)
 

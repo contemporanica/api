@@ -10,3 +10,17 @@ El controlador **composer\_name** devuelve información sobre un compositor con 
 El controlador **add\_compositor** agrega un nuevo compositor a la tabla de compositores de la base de datos si se proporciona una clave de API válida.
 
 Los controladores **instrument\_name, instrument\_id, family\_id, piece\_name y composer\_id** buscan información en la tabla correspondiente de la base de datos según el nombre o el ID de un instrumento o compositor específico y devuelven un objeto JSON con los resultados de la consulta.
+
+# Comprobación de datos:
+
+![](metodo_comprobación_datos.png)
+
+Creamos un método de manera dinámica para la comprobación de los datos en las tablas para averiguar si ese dato existia ya en la tabla para evitar que hubieran campos duplicados en la Base de Datos, en la estructura de nuestra Base de Datos solamente tenemos controlado que sea único el email, así que usamos este metodo para:
+
+**Editar los datos un Compositor**
+
+![](editar_compositor.png)
+
+**Añadir un nuevo Compositor**
+
+![](añadir_compositor.png)
