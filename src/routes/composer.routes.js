@@ -1,5 +1,5 @@
 import { Router } from "express";
-import {composer_name, composer, composer_id, add_compositor, composerUpdate} from "../controllers/indexRoutes.js"
+import {composer_name, composer, composer_id, add_compositor, composerUpdate, composerLogin} from "../controllers/indexRoutes.js"
 
 const router=Router();
 
@@ -11,6 +11,9 @@ router.get('/name/:name',composer_name);
 
 //Muestra el compositor por id
 router.get('/id/:id',composer_id);
+
+//Comprueba si el usuario con su contraseña son correctos
+router.get('/login',composerLogin);
 
 //Añade un nuevo compositor
 router.post('/add',add_compositor);

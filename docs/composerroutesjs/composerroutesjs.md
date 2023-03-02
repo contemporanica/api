@@ -19,7 +19,7 @@ Se puede mostrar el compositor por nombre y por id con los métodos GET correspo
 
 Se actualiza un compositor con el método PUT y la ruta "/update/:id". 
 
-![](Captura de pantalla 2023-03-02 005524.png)
+![](actualizar_compositor.png)
 
 Finalmente, se añade un nuevo compositor con el método POST y la ruta "/api/music/composer/add". 
 
