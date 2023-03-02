@@ -3,6 +3,8 @@ name: ci
 on:
   pull_request:
     types: [closed]
+    branches:
+      -main
 
 jobs:
   docker:
@@ -25,4 +27,4 @@ jobs:
         uses: docker/build-push-action@v3
         with:
           push: true
-          tags: contemporanica/api:latest , contemporanica/api:${{github.event.pull_request.title}}
+          tags: contemporanica/api:latest , contemporanica/api:latest

@@ -26,5 +26,10 @@ services:
       DB_PASSWORD: ContemporanicaDaw2@23
       DB_PORT: "3306"
       TOKEN: a944114ba4149684eb4e6b00e6093fdb
+    healthcheck:
+      test: ["CMD-SHELL", "sleep 5s && curl -f http://localhost:4000 || exit 1"]
+      interval: 10s
+      timeout: 5s
+      retries: 3
 volumes:
   db_data:
